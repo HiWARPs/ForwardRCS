@@ -36,15 +36,15 @@ def s2z(k, wt=wt1, wp=wp):
 	refgk = fk.real*gk.real + fk.imag*gk.imag
 	dsk = fk.real**2 + fk.imag**2 + gk.real**2 + gk.imag**2
 	r = val(refgk/dsk)
-	e1 = wt.dfi_err(lambda i: ((dfk(i).real*gk.real + dfk(i).imag*gk.imag)*dsk-(2*fk.real*dfk(i).real + 2*fk.imag*dfk(i).imag)*refgk)/(refgk*dsk))
-	e2 = wp.dfi_err(lambda i: ((fk.real*dgk(i).real + fk.imag*dgk(i).imag)*dsk-(2*gk.real*dgk(i).real + 2*gk.imag*dgk(i).imag)*refgk)/(refgk*dsk))
+	e1 = wt.dfi_err(lambda i: ((dfk(i).real*gk.real + dfk(i).imag*gk.imag)*dsk-(2*fk.real*dfk(i).real + 2*fk.imag*dfk(i).imag)*refgk)/dsk**2)
+	e2 = wp.dfi_err(lambda i: ((fk.real*dgk(i).real + fk.imag*dgk(i).imag)*dsk-(2*gk.real*dgk(i).real + 2*gk.imag*dgk(i).imag)*refgk)/dsk**2)
 	efk = (wt.data_region.f(k) + singular(lambda a: wt.data_region.cs(a, err=False), k, wt.data_region.k_min, wt.data_region.k_max) - float(e_Mp)) * 0.02 		#
 	if k > wt.data_region.k_max: efk = efk.real + 0j		###
 	# egk = (wp.data_region.g(k) - singular(lambda a: wp.data_region.cs(a, err=False), k, wp.data_region.k_min, wp.data_region.k_max) + k*float(IGDH)/(4*pi**2)) * 0.02 		#
 	egk = (wt1.data_region.g(k) - singular(lambda a: wt1.data_region.cs(a, err=False), k, wp.data_region.k_min, wp.data_region.k_max) + k*float(IGDH)/(4*pi**2)) * 0.02 		#
 	if k > wp.data_region.k_max: egk = egk.real + 0j		###
-	e1t = ((efk.real*gk.real + efk.imag*gk.imag)*dsk - 2*(fk.real*efk.real + fk.imag*efk.imag)*refgk)/(refgk*dsk)	# threshold region contrib
-	e2t = ((fk.real*egk.real + fk.imag*egk.imag)*dsk - 2*(gk.real*egk.real + gk.imag*egk.imag)*refgk)/(refgk*dsk)	# threshold region contrib
+	e1t = ((efk.real*gk.real + efk.imag*gk.imag)*dsk - 2*(fk.real*efk.real + fk.imag*efk.imag)*refgk)/dsk**2	# threshold region contrib
+	e2t = ((fk.real*egk.real + fk.imag*egk.imag)*dsk - 2*(gk.real*egk.real + gk.imag*egk.imag)*refgk)/dsk**2	# threshold region contrib
 	r.err = (e1**2 + e2**2 + e1t**2 + e2t**2)**0.5
 	return -2 * r
 
