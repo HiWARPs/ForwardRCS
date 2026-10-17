@@ -26,9 +26,9 @@ compton.gA = gA*(c)**0.5
 d = 0.002
 x = arange(d, 1, d)
 
-plot_to_file([x, map(t.im_f, x)],['1 2 label="Im f"'],filename='tmp/pi_imf')
-plot_to_file([x, map(p.im_g, x)],['1 2 label="Im g"'],filename='tmp/pi_img')
-plot_to_file([x, map(t.re_f, x)],['1 2 label="Re f"'],filename='tmp/pi_ref')
-plot_to_file([x, map(p.re_g, x)],['1 2 label="Re g"'],filename='tmp/pi_reg')
+plot_to_file([x, list(map(t.im_f, x))],['1 2 label="Im f"'],filename='tmp/pi_imf')	# py3 port: list(map(...)) here and below
+plot_to_file([x, list(map(p.im_g, x))],['1 2 label="Im g"'],filename='tmp/pi_img')
+plot_to_file([x, list(map(t.re_f, x))],['1 2 label="Re f"'],filename='tmp/pi_ref')
+plot_to_file([x, list(map(p.re_g, x))],['1 2 label="Re g"'],filename='tmp/pi_reg')
 
-plot_to_file([x, map(s2z, x)],[r'1 2 label=$\\Sigma_{2z}$'],filename='tmp/pi_s2z')
+plot_to_file([x, list(map(s2z, x))],[r'1 2 label=$\\Sigma_{2z}$'],filename='tmp/pi_s2z')

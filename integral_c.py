@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import tot
 from compton import *
-from scipy import pi
+from numpy import pi	# py3 port
 from integrate import Region, Smooth
 
 def change_regge(w, f):
@@ -11,7 +11,7 @@ def change_regge(w, f):
 
 for w, n in (tot.WholeRegion_1(quiet=True), '1'), (tot.WholeRegion_2(quiet=True), '2'):
 	
-	print 'fit '+n+' ' + '-'*20
+	print('fit '+n+' ' + '-'*20)
 	
 	p = w.h_region.fit.get_p()
 	g1, a1, g2, a2 = p[0], p[1]*0.5, p[2], p[3]*0.5
@@ -27,17 +27,17 @@ for w, n in (tot.WholeRegion_1(quiet=True), '1'), (tot.WholeRegion_2(quiet=True)
 	#for i in [1, 2, 20, 2000]:
 	#	print (r'\nu from \nu_0 to %.1f GeV :' + '\t %.4f') % (i, r1.integral_c(i)[0] - r2.integral_c(i)[0])
 
-	print r1.integral_c(i)[0] - r2.integral_c(i)[0]
+	print(r1.integral_c(i)[0] - r2.integral_c(i)[0])
 
 	change_regge(w, f)
 	s0 = 0
-	print w.integral_c(i)[0]
+	print(w.integral_c(i)[0])
 #	w.plot_regge(filename='out/regge_mine_'+n, logx=True, xmax=10**7)#, raw=False, plots=['1 2 label=mine'])
 #	w.plot_c(filename='out/c_mine_'+n, logx=False, xmax=4)
 
 	w.update_data()	# cleaning wrong cache
 	s0 = Mp**2
-	print w.integral_c(i)[0]
+	print(w.integral_c(i)[0])
 	#w.plot_regge(filename='out/regge_mine_s0_%.2f'%s0, logx=True, xmax=10**7)#, raw=False, plots=['1 2 label=mine_s0_%.2f'%s0])
 
 	#---------------------------
@@ -48,11 +48,11 @@ for w, n in (tot.WholeRegion_1(quiet=True), '1'), (tot.WholeRegion_2(quiet=True)
 
 	w.update_data()
 	s0 = 0
-	print w.integral_c(i)[0]
+	print(w.integral_c(i)[0])
 #	w.plot_regge(filename='out/regge_dl_'+n, logx=True, xmax=10**7)#, raw=False, plots=['1 2 label=D-L'])
 #	w.plot_c(filename='out/c_dl_'+n, logx=False, xmax=4)
 
 	w.update_data()
 	s0 = Mp**2
-	print w.integral_c(i)[0]
+	print(w.integral_c(i)[0])
 	#w.plot_regge(filename='out/regge_dl_s0_%.2f'%s0, logx=True, xmax=10**7)#, raw=False, plots=['1 2 label=D-L_s0_%.2f'%s0])

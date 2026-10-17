@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 import matplotlib.pyplot as plt
 from matplotlib import rc
@@ -45,7 +45,7 @@ class Plot:
 			self.kwargs['xerr'] = ex
 		if self.iey is not None:
 			self.kwargs['yerr'] = ey
-		kwargs = {k:v for k,v in self.kwargs.iteritems() if not (k == 'linestyle' and v[0] == '[')}
+		kwargs = {k:v for k,v in self.kwargs.items() if not (k == 'linestyle' and v[0] == '[')}	# py3 port
 		self.p = plt.errorbar(x, y, **kwargs)
 		if self.iby:
 			plt.fill_between(x, [ay - ab for ay, ab in zip(y, by)], [ay + ab for ay, ab in zip(y, by)], alpha=0.4, linewidth=0, facecolor=kwargs.get('color'))
@@ -115,12 +115,12 @@ def parseFile(filename):
 			elif a == 'xticks':
 				axis = plt.gca()
 				vals = shlex.split(val)
-				axis.xaxis.set_ticks(map(float, vals))
+				axis.xaxis.set_ticks(list(map(float, vals)))	# py3 port
 				axis.xaxis.set_ticklabels(vals)
 			elif a == 'yticks':
 				axis = plt.gca()
 				vals = shlex.split(val)
-				axis.yaxis.set_ticks(map(float, vals))
+				axis.yaxis.set_ticks(list(map(float, vals)))	# py3 port
 				axis.yaxis.set_ticklabels(vals)
 			elif a == 'color':
 				default_style['color'] = val
@@ -247,7 +247,7 @@ if __name__ == '__main__':
 		plots = [Plot(i+1) for i in range(len(data))]
 	
 	x1, x2, y1, y2 = _default_axis
-	all_x = sum([[d for d in data[plot.ix-1] if d is not None] if plot.ix is not None else range(len(data[plot.iy-1])) for plot in plots],[])
+	all_x = sum([[d for d in data[plot.ix-1] if d is not None] if plot.ix is not None else list(range(len(data[plot.iy-1]))) for plot in plots],[])	# py3 port: list(range)
 	all_y = sum([[d for d in data[plot.iy-1] if d is not None] for plot in plots],[])
 	x2 = x2 or max(all_x)
 	x1 = x1 or min(all_x)

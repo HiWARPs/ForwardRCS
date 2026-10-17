@@ -3,7 +3,8 @@
 import os
 # from scipy import pi, sqrt, inf, exp, nan, linalg
 # from scipy import sqrt, nan, linalg
-from scipy.integrate import simps, trapz
+# from scipy.integrate import simps, trapz
+from scipy.integrate import trapezoid as trapz	# py3 port: scipy.integrate.trapz/simps were removed; trapezoid is the same routine (simps is overridden below anyway)
 # quad = romberg
 simps = trapz
 
@@ -55,12 +56,19 @@ def cached_args_method(size=10000000):
 					return cache[cargs]
 				else:
 					if len(cache) == size:
-						del cache[next(cache.iterkeys(), None)]
+						del cache[next(iter(cache), None)]	# py3 port
 					r = f(self, *args, **kwargs)
 					cache[cargs] = r
 					return r
 			return cached
 	return decorator
+
+
+class _oldstyle_property(object):	# py3 port: Python-2 classes here were old-style, where a property only provides a getter and an instance
+	def __init__(self, fget):		# assignment (e.g. `self.baldin = None` in tot.py/pol.py) just shadows it; a non-data descriptor reproduces that
+		self.fget = fget
+	def __get__(self, obj, objtype=None):
+		return self if obj is None else self.fget(obj)
 
 
 class Data:
@@ -137,8 +145,8 @@ class Region:
 			else:
 				return [], [], []
 			x = [k0, k1]
-			y = map(liny, x)
-			e = map(line, x)
+			y = list(map(liny, x))	# py3 port
+			e = list(map(line, x))	# py3 port
 		else:
 			if l0>0 and x[0]!=k0:
 				y = [linear(x0[-1], x[0], self.y[l0-1], y[0])(k0)] + y
@@ -433,8 +441,8 @@ class Region:
 	def sr_6(self, k0=None, k1=None):
 		return self.integral_n(6, self.k_min if k0 is None else k0, self.k_max if k1 is None else k1)
 	
-	gdh = property(sr_1)
-	baldin = property(sr_2)
+	gdh = _oldstyle_property(sr_1)	# py3 port: see _oldstyle_property
+	baldin = _oldstyle_property(sr_2)
 	
 	def plot(self, f, prefix='plot', xmin=None, xmax=None, dx=None, logx=False, filename=None, raw=True, **kwargs):
 		if filename is None:
@@ -445,7 +453,7 @@ class Region:
 		xf = self.cut_xye(xmin, xmax)[0] if dx is None else arange(xmin, xmax, dx, logx)	#
 		fx = map_verbose(f, xf, 'plotting to "'+filename+'"')
 		data = [xf] + list(zip(*fx)) if is_iterable(fx[0]) else [xf, fx]
-		data = zip(*[d for d in zip(*data) if nan not in d])	# dirty hack
+		data = list(zip(*[d for d in zip(*data) if nan not in d]))	# dirty hack	(py3 port: list)
 		kwargs['plots'] = kwargs.get('plots') or ['1 '+str(i)+' label="'+self.name+'"' for i in range(2, len(data)+1)]
 		plot_to_file(data, filename=filename, **({} if raw else kwargs))
 		return self
@@ -531,8 +539,8 @@ class ThresholdRegion(Region):
 	
 	def _gen_method_precompute_x(method):
 		def precompute_x(self, quiet=False):
-			if not quiet: print 'precomputing %s ...'%method
-			setattr(self, '_'+method, map(getattr(self, 'integral_'+method), self._x))
+			if not quiet: print('precomputing %s ...'%method)
+			setattr(self, '_'+method, list(map(getattr(self, 'integral_'+method), self._x)))	# py3 port: list
 		precompute_x.__name__ = 'precompute_'+method
 		return precompute_x
 	
@@ -739,13 +747,13 @@ class WholeRegion(Region):
 		if b[-1] is None:
 			b[-1] = self.k_max
 		if n == 1:
-			print 'GDH SR:'
+			print('GDH SR:')
 		elif n == 2:
-			print 'Baldin SR:'
+			print('Baldin SR:')
 		else:
-			print str(n)+'th order SR:'
+			print(str(n)+'th order SR:')
 		if short:
-			print '  ' + str_v(self.integral_n(n, b[0], b[-1]))
+			print('  ' + str_v(self.integral_n(n, b[0], b[-1])))
 		else:
 			s = ['  [%.1f, %.1f]'%tuple(b[:2]) + ' threshold region:  ',
 				'  [%.1f, %.1f]'%tuple(b[1:3]) + ' resonance region:  ',
@@ -753,6 +761,6 @@ class WholeRegion(Region):
 				'  [%.1f, %.1f]'%(b[0], b[-1]) + ' TOTAL:  ']
 			m = max(map(len, s))
 			s = [a + ' ' * (m - len(a)) for a in s]
-			print '\n'.join(s[i] + str_v(self.integral_n(n, b[i1], b[i2]), d=5) for i, i1, i2 in zip(range(4), (0,1,2,0), (1,2,3,-1)))
+			print('\n'.join(s[i] + str_v(self.integral_n(n, b[i1], b[i2]), d=5) for i, i1, i2 in zip(range(4), (0,1,2,0), (1,2,3,-1))))
 		return self
 

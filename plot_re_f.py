@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 from matplotlib import rc
-from scipy import array
+from numpy import array	# py3 port
 
 from common import *
 from compton import *
@@ -35,8 +35,8 @@ plt1.set_ylabel(r'$\mathrm{Re}f$ [$\mu$b$\cdot$GeV]', fontsize=14)
 lns = []
 
 path = 'paper_llpg/'
-d1 = map(array, read_xye(path+'re_f_low_1.dat'))
-d2 = map(array, read_xye(path+'re_f_low_2.dat'))
+d1 = list(map(array, read_xye(path+'re_f_low_1.dat')))	# py3 port: list(map(...)) here and below
+d2 = list(map(array, read_xye(path+'re_f_low_2.dat')))
 plt1.axis([1.08, 2.4, -16, 5])
 p = plt1.plot(d1[0], d1[1], color='red', label='based on fit I')
 lns += p
@@ -54,8 +54,8 @@ lns += [p]
 # lns += p[2]
 # plt1.legend(loc=3, numpoints=1)
 
-d1 = map(array, read_xye(path+'re_f_high_bh.dat'))
-d2 = map(array, read_xye(path+'re_f_high_dl.dat'))
+d1 = list(map(array, read_xye(path+'re_f_high_bh.dat')))
+d2 = list(map(array, read_xye(path+'re_f_high_dl.dat')))
 plt2.axis([2.4, 15, -20, 20])
 plt2.yaxis.tick_right()
 plt2.yaxis.set_ticks_position('both')

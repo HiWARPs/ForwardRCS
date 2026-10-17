@@ -25,7 +25,7 @@ class FunctionFit:
 	def __init__(self, *p, **kwargs):
 		self.pcov = None
 		self.set_p(*p)
-		if kwargs.has_key('f'):
+		if 'f' in kwargs:	# py3 port
 			self.f = kwargs['f']
 	
 	def f(self, k, *p):
@@ -77,19 +77,19 @@ class FunctionFit:
 		return tuple(list(p) + list(self.get_p())[len(p):])
 	
 	def fit(self, xdata, ydata, errdata, quiet=False):	# let's return self
-		if not quiet: print 'fitting ...'
+		if not quiet: print('fitting ...')
 		p, pcov = curve_fit(self, xdata, ydata, p0=self.get_p(), sigma=errdata, absolute_sigma=True)
 		self.set_p(*p)
 		self.pcov = pcov
-		if not quiet: print 'chisqr/point = %.2f' % (chisqr(self, xdata, ydata, errdata)/len(xdata)), '(for %d points)' % len(xdata)
+		if not quiet: print('chisqr/point = %.2f' % (chisqr(self, xdata, ydata, errdata)/len(xdata)), '(for %d points)' % len(xdata))
 		return self
 	
 	def print_p(self, s=None, p=None, sep='\n  '):
 		if p is None:
 			p = zip(self.get_p(), self.get_perr())
 		if s is not None:
-			print s
-		print '  ' + sep.join(map(str_v, p))
+			print(s)
+		print('  ' + sep.join(map(str_v, p)))
 
 
 class BackgroundFit(FunctionFit):
@@ -171,7 +171,7 @@ class ResonanceRegionFit(FunctionFit):
 		return self
 	
 	def fit(self, xdata, ydata, errdata, bgd_fit=True, ncycles=3, quiet=False):
-		if not quiet: print 'fitting ...'
+		if not quiet: print('fitting ...')
 		for i in range(ncycles):
 			self.fit_ress(xdata, ydata, errdata, quiet=True)
 			if bgd_fit: self.fit_bgrd(xdata, ydata, errdata, quiet=True)
@@ -184,19 +184,19 @@ class ResonanceRegionFit(FunctionFit):
 		self.pcov = self.get_pcov((xdata, errdata))
 		if not quiet:
 			#print self.get_p()
-			print 'chisqr/point = %.2f' % (chisqr(self, xdata, ydata, errdata)/len(xdata)), '(for %d points)' % len(xdata)
+			print('chisqr/point = %.2f' % (chisqr(self, xdata, ydata, errdata)/len(xdata)), '(for %d points)' % len(xdata))
 			self.print_p()
 		return self
 	
 	def print_p(self):
-		p = map(val, zip(self.get_p(), self.get_perr()))
+		p = list(map(val, zip(self.get_p(), self.get_perr())))	# py3 port
 		n = len(self.resonances)
-		print r'resonances parameters (M [MeV], \Gamma [MeV], A [mcb]):'
+		print(r'resonances parameters (M [MeV], \Gamma [MeV], A [mcb]):')
 		for i in range(n):
-			print ' ', '   '.join('%.4f +- %.4f'%tuple(a) for a in p[3*i:3*i+3])
+			print(' ', '   '.join('%.4f +- %.4f'%tuple(a) for a in p[3*i:3*i+3]))
 		if self.bgd:
-			print 'background parameters ([mcb * GeV^n]):'
-			print ' ', '   '.join('%.4f +- %.4f'%tuple(a) for a in p[3*n:])
+			print('background parameters ([mcb * GeV^n]):')
+			print(' ', '   '.join('%.4f +- %.4f'%tuple(a) for a in p[3*n:]))
 
 
 class AsymptoticRegionFit(FunctionFit):
@@ -305,11 +305,11 @@ if __name__ == '__main__':
 	xdata, ydata, errdata = read_xye('data/tot/mdata.dat', xmin=2.)
 	AsymptoticRegionFit().fit(xdata, ydata, errdata)
 	
-	print '\n------------------ fit I -----------------'
+	print('\n------------------ fit I -----------------')
 	xdata, ydata, errdata = read_xye('data/tot/mdata.dat', xmin=E1, xmax=2.)
 	f = ResonanceRegionFit().fit(xdata, ydata, errdata)
 	
-	print '\n------------------ fit II ----------------'
+	print('\n------------------ fit II ----------------')
 	xdata, ydata, errdata = read_xye('data/tot/sdata.dat', xmin=E1, xmax=2.)
 	f = ResonanceRegionFit().fit(xdata, ydata, errdata)
 	

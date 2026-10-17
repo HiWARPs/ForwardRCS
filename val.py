@@ -77,6 +77,8 @@ class Value:
 	def __nonzero__(self):
 		return self.val != 0 or self.err != 0
 	
+	__bool__ = __nonzero__	# py3 port
+	
 	def __neg__(self):
 		return Value(-self.val, self.err)
 	
@@ -113,6 +115,8 @@ class Value:
 	
 	def __rdiv__(self, v):
 		return Value(v)/self
+	
+	__truediv__, __rtruediv__ = __div__, __rdiv__	# py3 port: '/' calls __truediv__
 	
 	def __pow__(self, v):
 		return Value(self.val**v, abs(v*self.val**(v-1)*self.err))

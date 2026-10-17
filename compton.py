@@ -1,4 +1,4 @@
-from scipy import pi
+from numpy import pi	# py3 port: scipy.pi no longer exists (it was numpy.pi)
 from val import pm
 
 h = 4.135667662*10**-15 |pm| 0.000000025*10**-15	# eV * s (CODATA)

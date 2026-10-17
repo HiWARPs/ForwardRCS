@@ -110,6 +110,11 @@ class WholeRegion(integrate.WholeRegion):
 
 class AhrensWholeRegion(integrate.ThresholdRegion, WholeRegion):
 	
+	# py3 port: Python 2 old-style classes resolve attributes depth-first (ThresholdRegion -> Region -> WholeRegion), new-style (C3)
+	# would pick WholeRegion.cs and tot.WholeRegion.integral_c instead of Region's; restore the Python 2 resolution
+	cs = integrate.Region.cs
+	integral_c = integrate.Region.integral_c
+	
 	def __init__(self, k_min=E0, k_max=1E10, name='ahrens', path='tot', filename='ahrens_fit.dat', quiet=False):
 		integrate.ThresholdRegion.__init__(self, k_min=k_min, k_max=k_max, name=name, path=path, filename=filename, pre_g=False, quiet=quiet)
 		self.b = [self.k_min, E1, E2, self.k_max]

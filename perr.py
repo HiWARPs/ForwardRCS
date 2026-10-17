@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from scipy import pi
+from numpy import pi	# py3 port
 from compton import *
 from common import *
 from tot import *
@@ -17,14 +17,14 @@ for y, e in zip(w.y, w.err):
 		n += 1
 
 r /= n
-print 'average cs relative error:', r
+print('average cs relative error:', r)
 
 plot_to_file([x, [(1+r)*w.cs(k) for k in x]], ['1 2'], filename='tmp/cs_p', xlogscale=True)
 plot_to_file([x, [(1-r)*w.cs(k) for k in x]], ['1 2'], filename='tmp/cs_m', xlogscale=True)
 
 # plot_to_file([x, map(lambda a: float(w1.integral_f(6, w1.k_min, fcm2lab(a))/w2.integral_f(6, w1.k_min, fcm2lab(a))), x)], ['1 2'], 'tmp/dfcutoff_6', xlogscale=True)
 # print 'amp. relative error:', 
-print w.integral_f(6)
+print(w.integral_f(6))
 
 p, perr = w.r_region.fit.get_p() + w.h_region.fit.get_p(), w.r_region.fit.get_perr() + w.h_region.fit.get_perr()
 pp = p
@@ -38,7 +38,7 @@ for i in range(len(p)):
 		pp_ += [a1, a2]
 	pp = pp_
 
-print len(p), len(pp)
+print(len(p), len(pp))
 
 # for a in pp:
 	# w._cache = {}

@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 from matplotlib import rc
-from scipy import array, array_split
+from numpy import array, array_split	# py3 port
 
 from common import *
 from compton import *
@@ -27,8 +27,8 @@ fig.text(0.45, 0.01, r'$\Lambda$ [GeV]', ha='center', fontsize=14)
 plt.ylabel(r'$\mathrm{Re}f_\Lambda\;/\;\mathrm{Re}f$', fontsize=14)
 
 path = 'paper_llpg/'
-d1 = map(array, read_xye(path+'f_cutoffn_bh.dat'))
-d2 = map(array, read_xye(path+'f_cutoffn_dl.dat'))
+d1 = list(map(array, read_xye(path+'f_cutoffn_bh.dat')))	# py3 port: list(map(...)) here and below
+d2 = list(map(array, read_xye(path+'f_cutoffn_dl.dat')))
 plt.axis([5, 25, 0.9, 1.05])
 p = plt.plot(d1[0], d1[1], color='black', label='Block - Halzen $\,$fit')
 p[0].set_dashes([6,3])
@@ -41,9 +41,9 @@ for i, xchunk in zip(range(1,n+1), xchunks):
 	if len(xchunk):
 		xmin, xmax = xmax, max(xchunk)
 		if xmax != xmin:
-			d = map(array, zip(*[l for l in zip(*d2) if xmin <= l[0] <= xmax]))
+			d = list(map(array, zip(*[l for l in zip(*d2) if xmin <= l[0] <= xmax])))
 			plt.fill_between(d[0], d[1]-d[2], d[1]+d[2], alpha=0.4*i/(n+1), color='orange', linewidth=0)
-d = map(array, zip(*[l for l in zip(*d2) if l[0] >= x1]))
+d = list(map(array, zip(*[l for l in zip(*d2) if l[0] >= x1])))
 plt.fill_between(d[0], d[1]-d[2], d[1]+d[2], alpha=0.4, color='orange', linewidth=0)
 plt.legend(loc=4, numpoints=1)
 

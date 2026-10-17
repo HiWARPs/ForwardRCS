@@ -1,6 +1,10 @@
-def str_v((v, err), d=4, td=8):
+def str_v(v_err, d=4, td=8):	# py3 port: no tuple parameter unpacking in py3
+	v, err = v_err
 	d, td = map(str, (d, td))
 	return ('%'+td+'.'+d+r'f \pm %'+td+'.'+d+'f') % (v, err)
+
+
+from functools import cmp_to_key	# py3 port
 
 
 def read_xy(filename, xmin = None, xmax = None):
@@ -9,12 +13,12 @@ def read_xy(filename, xmin = None, xmax = None):
 		for l in fi:
 			if l.strip()!='' and l.strip()[0]!='#':
 				try:
-					data.append(map(float, l.split()[:2]))
+					data.append(list(map(float, l.split()[:2])))
 				except:
 					pass
 	compare = lambda a, b: 1 if a[0]>b[0] else -1
-	data = sorted(data, compare)
-	r = zip(*[(d[0], d[1]) for d in data if (xmin or d[0]) <= d[0] <= (xmax or d[0])])
+	data = sorted(data, key=cmp_to_key(compare))	# py3 port (same timsort, same '<' comparisons)
+	r = list(zip(*[(d[0], d[1]) for d in data if (xmin or d[0]) <= d[0] <= (xmax or d[0])]))
 	return [(),()] if r==[] else r
 
 
@@ -24,25 +28,25 @@ def read_xye(filename, xmin = None, xmax = None):
 		for l in fi:
 			if l.strip()!='' and l.strip()[0]!='#':
 				try:
-					data.append(map(float, l.split()[:3]))
+					data.append(list(map(float, l.split()[:3])))
 				except:
 					pass
 	compare = lambda a, b: 1 if a[0]>b[0] else -1
-	data = sorted(data, compare)
-	r = zip(*[(d[0], d[1], 0. if len(d) < 3 else d[2]) for d in data if (xmin or d[0]) <= d[0] <= (xmax or d[0])])
+	data = sorted(data, key=cmp_to_key(compare))	# py3 port (same timsort, same '<' comparisons)
+	r = list(zip(*[(d[0], d[1], 0. if len(d) < 3 else d[2]) for d in data if (xmin or d[0]) <= d[0] <= (xmax or d[0])]))
 	return [(),(),()] if r==[] else r
 
 
 def lfind_sorted(a, x):
 	if len(a) == 1:
 		return 0
-	l2 = len(a)/2
+	l2 = len(a)//2	# py3 port: integer division
 	return lfind_sorted(a[:l2], x) if a[l2]>x else l2 + lfind_sorted(a[l2:], x)
 
 def rfind_sorted(a, x):
 	if len(a) == 1:
 		return 0
-	l2 = len(a)/2
+	l2 = len(a)//2	# py3 port: integer division
 	return rfind_sorted(a[:l2], x) if a[l2-1]>=x else l2 + rfind_sorted(a[l2:], x)
 
 def split_sorted(a, *args):
@@ -94,11 +98,11 @@ def linear(x1, x2, y1, y2):
 	return lambda x: (x-x1)*(y2-y1)/(x2-x1) + y1
 
 
-from itertools import izip_longest
+from itertools import zip_longest as izip_longest	# py3 port
 
 def plot_to_file(data, plots=[], filename='out/out', title=None, xylabel=None, xlogscale=False, **kwargs):
 	with open(filename, 'w') as fout:
-		for k, v in kwargs.iteritems():
+		for k, v in kwargs.items():	# py3 port
 			fout.write('%s: %s\n' % (k, v))
 		if xlogscale:
 			fout.write('xlogscale:\n')
@@ -135,7 +139,9 @@ import mpmath
 # for a in ('sin', 'cos', 'exp', 'log', 'sqrt'):
 # 	vars()[a] = numpy.vectorize(getattr(mpmath, a))
 
-from scipy import pi, nan, inf, sin, cos, exp, log, sqrt, tan
+# from scipy import pi, nan, inf, sin, cos, exp, log, sqrt, tan
+from numpy import pi, nan, inf, sin, cos, exp, tan	# py3 port: these scipy aliases of numpy objects were removed from scipy; same objects
+from numpy.lib.scimath import log, sqrt	# py3 port: scipy.log/scipy.sqrt were the numpy.lib.scimath versions (complex result for negative input)
 
 
 import os
@@ -158,7 +164,16 @@ def is_iterable(a):	# duck typing
 
 
 # from mpmath import diff as derivative
-from scipy.misc import derivative as diff
+# from scipy.misc import derivative as diff
+def diff(func, x0, dx=1.0, n=1, args=(), order=3):	# py3 port: scipy.misc.derivative was removed from SciPy; this is its exact algorithm for n=1, order=3 (the only case used)
+	if n != 1 or order != 3:
+		raise NotImplementedError('py3 port: only n=1, order=3 of scipy.misc.derivative is re-implemented')
+	weights = numpy.array([-1,0,1])/2.0
+	val = 0.0
+	ho = order >> 1
+	for k in range(order):
+		val += weights[k]*func(x0+(k-ho)*dx,*args)
+	return val / numpy.prod((dx,)*n,axis=0)
 derivative = lambda *a, **kw: diff(*a, **dict(kw, dx=1e-6))
 
 from scipy.optimize import curve_fit, leastsq

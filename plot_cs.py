@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 from matplotlib import rc
-from scipy import array
+from numpy import array	# py3 port
 
 from common import *
 from compton import *
@@ -41,8 +41,8 @@ for s,l,m,ms,c in datasets:
 	plt1.errorbar(x, y, yerr=e, color=c, marker=m, markersize=ms, linestyle='None', label=l)
 
 path = 'paper_llpg/'
-d1 = map(array, read_xye(path+'cs_1.dat'))
-d2 = map(array, read_xye(path+'cs_2.dat'))
+d1 = list(map(array, read_xye(path+'cs_1.dat')))	# py3 port: list(map(...)) here and below
+d2 = list(map(array, read_xye(path+'cs_2.dat')))
 plt1.axis([1.08, 2.4, 0, 600])
 p = plt1.plot(d1[0], d1[1], color='red', label='fit I')
 plt1.fill_between(d1[0], d1[1]-d1[2], d1[1]+d1[2], alpha=0.4, color='red', linewidth=0)
@@ -59,8 +59,8 @@ for s,l,m,ms,c in datasets:
 	x, y, e = map(array, read_xye(data_path+s))
 	plt2.errorbar(x, y, yerr=e, color=c, marker=m, markersize=ms, linestyle='None', label=l)
 
-d1 = map(array, read_xye(path+'cs_bh.dat'))
-d2 = map(array, read_xye(path+'cs_dl.dat'))
+d1 = list(map(array, read_xye(path+'cs_bh.dat')))
+d2 = list(map(array, read_xye(path+'cs_dl.dat')))
 plt2.axis([2.4, 250, 100, 200])
 plt2.yaxis.tick_right()
 plt2.yaxis.set_ticks_position('both')

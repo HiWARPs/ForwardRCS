@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-from scipy import pi, nan
+from numpy import pi, nan	# py3 port: scipy.pi/scipy.nan no longer exist (they were numpy's)
 
 from val import val
 from common import *
@@ -89,7 +89,7 @@ def plot(f, prefix='plot', xmin=0., xmax=2.5, dx=0.002, logx=False, filename=Non
 	xf = arange(xmin, xmax, dx, logx)
 	fx = map_verbose(f, xf, 'plotting to "'+filename+'"')
 	data = [xf] + list(zip(*fx)) if is_iterable(fx[0]) else [xf, fx]
-	data = zip(*[d for d in zip(*data) if nan not in d])	# dirty hack
+	data = list(zip(*[d for d in zip(*data) if nan not in d]))	# dirty hack	(py3 port: list)
 	kwargs['plots'] = kwargs.get('plots') or ['1 '+str(i) for i in range(2, len(data)+1)]
 	plot_to_file(data, filename=filename, **({} if raw else kwargs))
 

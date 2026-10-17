@@ -25,12 +25,12 @@ def re_over_im_f(k, w=None):
 w1 = BHWholeRegion()
 w1.smooth.set_p(0.02)
 w2 = DLWholeRegion()
-print "plotting..."
+print("plotting...")
 
 x = arange(flab2cm(w1.k_min+2e-3), 1e5, dx=1e-2, logx=True)
 # x = arange(1.08, 1e8, dx=0.01, logx=True)
 # x = [10]
-y_e = zip(*(sum((tuple(w.re_over_im_f(k=fcm2lab(W), err=True)) for w in (w1, w2)), ()) for W in x))
+y_e = list(zip(*(sum((tuple(w.re_over_im_f(k=fcm2lab(W), err=True)) for w in (w1, w2)), ()) for W in x)))	# py3 port: list
 # y_e = zip(*(sum((tuple(re_over_im_f(k=fcm2lab(W), w=w)) for w in (w1, w2)), ()) for W in x))
 # print y_e
 plot_to_file([x] + y_e, filename='paper_llpg/re_im.dat')
