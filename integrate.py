@@ -24,7 +24,10 @@ from fit import *
 # for a in ['log', 'exp', 'pi']:
 #	setattr(fit, a, getattr(mpmath, a))
 
-quad = lambda f, k0, k1, **kw: mpmath.quad(lambda k: f(float(k)), [k0, k1], **dict(kw, error=True, method='tanh-sinh'))
+_cuts = [0.35, 0.45, 0.6, 0.75, 0.9, 1.0, 1.1, 1.25, 1.5, 1.75, 2.0, 2.5, 3.5, 5., 10., 30., 1e2, 1e3, 1e4, 1e5]	# lab GeV: narrow resonances (Gamma ~ 20 MeV at W = 1.7 GeV) and the 2 GeV junction each get their own interval
+def quad(f, k0, k1, at=None, **kw):	# value only: the quadrature error estimate is not a physics error
+	cuts = sorted(set(c for c in _cuts + ([at] if at is not None else []) if k0 < c < k1))	# 'at': an extra interval end (the subtraction point, so that no node of significant weight falls on p = k)
+	return mpmath.quad(lambda k: f(float(k)), [k0] + cuts + [k1], **dict(kw, method='tanh-sinh'))
 
 
 caching = True
@@ -265,7 +268,7 @@ class Region:
 		# else:
 		# 	integrate = lambda f: val(quad(f, k0, k1))
 		if subtracted:
-			return val(quad(lambda p: factor * (p**m*f(p) - k**m*f(k))/(p**2 - k**2), k0, k1)) + factor * k**m*f(k)*singular(k, k0, k1)
+			return val(quad(lambda p: factor * (p**m*f(p) - k**m*f(k))/(p**2 - k**2) if p != k else 0., k0, k1, at=k)) + factor * k**m*f(k)*singular(k, k0, k1)	# k is an interval end: p == k only there, where the weight vanishes
 			# cut = 2*k - k0
 			# left = quad(lambda p: factor * p**m*f(p)/(p + k), k0, cut, weight='cauchy', wvar=k)	# THIS IS WRONG BECAUSE OF HACKS FOR THE WHOLEREGION BELOW!
 			# right = quad(lambda p: factor * p**m*f(p)/(p**2 - k**2), cut, k1)
