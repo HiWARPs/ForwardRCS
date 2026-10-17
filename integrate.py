@@ -683,7 +683,7 @@ class WholeRegion(Region):
 		if not (self.k_min <= k <= self.k_max):
 			if err: return val(0)
 			return 0.
-		if k < self.b[1]:
+		if k <= self.b[1]:	# E1 belongs to the PWA table: the threshold trapezoid ends there, and a step of sigma at E1 must not enter it
 			r = self.data_region.fit(k)
 		else:
 			r = self.fit(k)
@@ -693,14 +693,14 @@ class WholeRegion(Region):
 	
 	@cached_args_method()
 	def dcs(self, i, k):
-		if k < self.b[1]:
+		if k <= self.b[1]:
 			return 0.
 		else:
 			return self.fitted_region.fit.df(i, k)
 	
 	@cached_args_method()
 	def cs_err(self, k):
-		if k < self.b[1]:
+		if k <= self.b[1]:
 			return self.data_region.cs_err(k)
 		else:
 			return self.fit.err(k)
