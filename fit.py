@@ -78,7 +78,7 @@ class FunctionFit:
 	
 	def fit(self, xdata, ydata, errdata, quiet=False):	# let's return self
 		if not quiet: print('fitting ...')
-		p, pcov = curve_fit(self, xdata, ydata, p0=self.get_p(), sigma=errdata, absolute_sigma=True)
+		p, pcov = curve_fit(self, xdata, ydata, p0=self.get_p(), sigma=errdata, absolute_sigma=True, maxfev=100000)	# the polarized resonance fit needs more than the default 100(n+1) calls once the MAID anchors carry their 2% error
 		self.set_p(*p)
 		self.pcov = pcov
 		if not quiet: print('chisqr/point = %.2f' % (chisqr(self, xdata, ydata, errdata)/len(xdata)), '(for %d points)' % len(xdata))

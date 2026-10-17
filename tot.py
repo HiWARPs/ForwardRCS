@@ -4,10 +4,6 @@ from compton import *
 import integrate
 
 
-data1 = integrate.Data('tot', 'data1.dat')
-data2 = integrate.Data('tot', 'data2.dat')
-
-
 class WholeRegion(integrate.WholeRegion):
 	
 	# #..........................................................................
@@ -132,7 +128,7 @@ class WholeRegion_1(WholeRegion):
 		if init:
 			self.update_data()
 			self.update_fit(quiet=quiet)
-		self.fit.pcov = self.fit.get_pcov(zip(*[(x, e) for x, e in zip(data1.x, data1.err)]))# if self.r_region.k_min <= x <= self.h_region.k_max]))
+		self.fit.pcov = self.fit.get_pcov((self.r_region.x + self.h_region.x, self.r_region.err + self.h_region.err))	# the points and errors of the fit
 
 
 class WholeRegion_2(WholeRegion):
@@ -147,7 +143,7 @@ class WholeRegion_2(WholeRegion):
 		if init:
 			self.update_data()
 			self.update_fit(quiet=quiet)
-		self.fit.pcov = self.fit.get_pcov(zip(*[(x, e) for x, e in zip(data2.x, data2.err)]))# if self.r_region.k_min <= x <= self.h_region.k_max]))
+		self.fit.pcov = self.fit.get_pcov((self.r_region.x + self.h_region.x, self.r_region.err + self.h_region.err))	# the points and errors of the fit
 
 
 if __name__ == '__main__':

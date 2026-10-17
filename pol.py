@@ -6,9 +6,6 @@ import integrate, numpy, scipy
 from scipy.integrate import quad
 
 
-data = integrate.Data('pol')
-
-
 class ThresholdRegion(integrate.ThresholdRegion):
 	
 	def __init__(self, *args, **kwargs):
@@ -40,7 +37,7 @@ class WholeRegion(integrate.WholeRegion):
 		# self.r_region.fit = self.h_region.fit = self.fit
 		# self.r_region.fit.get_pcov(zip(*[(x, e) for x, e in zip(data.x, data.err) if self.r_region.k_min <= x]))	# NOTE we use here all the points (not only up to 2 GeV)
 		# self.r_region.fit.get_pcov(zip(*[(x, e) for x, e in zip(data.x, data.err) if self.r_region.k_min <= x <= self.r_region.k_max]))
-		self.r_region.fit.get_pcov(zip(*[(x, e) for x, e in zip(data.x, data.err) if x <= self.r_region.k_max]))
+		self.r_region.fit.get_pcov((self.r_region.x, self.r_region.err))	# the points and errors of the fit
 		self.h_region.fit.pcov = numpy.diag([5.7, 0.23*2, 29., 0.22*2])**2
 		#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		# self.h_region.fit.f = self.h_f
