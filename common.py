@@ -81,7 +81,7 @@ _interp_cache = {}
 def interp(x, xd, yd):
 # def interp1(x, xd, yd):
 	key = tuple(map(tuple, (xd, yd)))
-	_interp_cache[key] = f = _interp_cache.get(key) or interp1d(key[0], key[1], kind='cubic', copy=False, bounds_error=False, fill_value=(0, yd[-1]), assume_sorted=True)
+	_interp_cache[key] = f = _interp_cache.get(key) or interp1d(key[0], key[1], kind='linear', copy=False, bounds_error=False, fill_value=(0, yd[-1]), assume_sorted=True)	# linear, as interp0 in the runs behind the published tables; cubic overshoots at the pi+ n cusp (sigma < 0)
 	return f(x)
 
 

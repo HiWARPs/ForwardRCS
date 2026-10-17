@@ -549,7 +549,7 @@ class ThresholdRegion(Region):
 		self.update_data()
 		#self._interp = interp1d(self.x, self.y, fill_value=0., bounds_error=False, assume_sorted=True, kind='linear')
 		self._f = self._g = self._g_subtracted = None
-		self._x = [1.5*self.x[0] - 0.5*self.x[1]] + [0.5*(self.x[i] + self.x[i+1]) for i in range(len(self.x) - 1)] + [1.5*self.x[-1] - 0.5*self.x[-2]]
+		self._x = [1.5*self.x[0] - 0.5*self.x[1]] + [0.5*(self.x[i] + self.x[i+1]) for i in range(len(self.x) - 1)]	# no node above E1: there sigma(k) comes from the fit, attached only after the precomputation (WholeRegion.__init__); energies above the last midpoint are integrated directly
 		if pre_f:
 			self.precompute_f(quiet=quiet)
 		if pre_g:
