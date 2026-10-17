@@ -574,7 +574,10 @@ class ThresholdRegion(Region):
 		x = self.cut_xye(k0, k1)[0]
 		if subtracted:
 			f_k = f(k)
-			return val(simps([factor * (p**m*f(p) - k**m*f_k)/(p**2 - k**2) for p in x], x)) + factor * k**m*f_k*singular(k, k0, k1)
+			y = [factor * (p**m*f(p) - k**m*f_k)/(p**2 - k**2) if p != k else nan for p in x]	# 0/0 when k is a table energy ...
+			for i in [i for i, a in enumerate(y) if a != a]:
+				y[i] = numpy.nanmean(y[max(i-1, 0):i+2])	# ... finite limit: mean of the neighbouring nodes
+			return val(simps(y, x)) + factor * k**m*f_k*singular(k, k0, k1)
 		else:
 			return val(simps([factor * p**m*f(p)/(p**2 - k**2) for p in x], x))
 	
