@@ -1,0 +1,23 @@
+xylabel: '$\nu \; [\mathrm{GeV}]$' '$\sigma_{\mathrm{abs}} \; [\upmu \mathrm{b}]$'
+
+size: 6.1 2.8
+
+linestyle: None
+marker: None
+
+xlogscale:
+minx: 0.1
+maxx: 40000
+miny: 0
+maxy: 600
+
+#plot: 1 2        source=../data/tot/maid.dat   linestyle=[4,2]       linewidth=2    color=violet
+#plot: 1 2        source=../data/tot/said.dat   linestyle=[8,2]       linewidth=1.4  color=orange
+#plot: 1 2 yband=3       source=./tot/cs_1_logx.out    linestyle=-           linewidth=1.2  color=red
+plot: 1 2 yband=3       source=./tot/cs_2_logx.out    linestyle=[11,5]      linewidth=0.8  color=blue
+
+plot: 1 2 yerr=3 source=../data/tot/armstrong.dat      label="Armstrong $et\,al.$" marker=s color=grey
+plot: 1 2 yerr=3 source=../data/tot/maccormick.dat     label="MacCormick $et\,al.$" marker=o color=black
+plot: 1 2 yerr=3 source=../data/tot/pdg/caldwell.dat   label="Caldwell $et\,al.$" marker=d   color=cyan
+plot: 1 2 yerr=3 source=../data/tot/pdg/aid.dat        label="H1 Collaboration"   marker=h   color=red
+plot: 1 2 yerr=3 source=../data/tot/pdg/chekanov.dat   label="ZEUS Collaboration" marker=*   color=violet

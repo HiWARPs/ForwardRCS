@@ -1,0 +1,3 @@
+xylabel: 'k, GeV' 'Total cross section, mcb'
+marker: .
+plot: 1 2 label="MAID 2007" source='maid.dat'

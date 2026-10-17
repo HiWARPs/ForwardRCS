@@ -1,0 +1,12 @@
+xylabel: "$\nu \; [\mathrm{GeV}]$" "$g \;\; [\upmu \mathrm{b} \cdot \mathrm{GeV}]$"
+
+linestyle: None
+linewidth: 1.5
+
+miny: -0.7
+maxy: 0.6
+minx: 0.143
+maxx: 0.16
+
+plot: 1 2 source=amp/g_small.out  color=red   linewidth=1.4 label='$\mathrm{Re}\,g$'   linestyle=-
+plot: 1 3 source=amp/g_small.out  color=blue  linewidth=1.4 label='$\mathrm{Im}\,g$'   linestyle=[8,2]

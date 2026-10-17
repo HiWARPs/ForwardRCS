@@ -1,0 +1,6 @@
+maxx: 2
+xylabel: 'k, GeV' 'Total cross section, mcb'
+
+include: babusci_data+fit.dat
+plot: 1 3 yerror=4 label='Babusci data'
+plot: 1 5 label='Babusci fit'

@@ -1,0 +1,2 @@
+xlogscale:
+plot: 1 2 yerr=3 source=BH_data2.dat color=purple linestyle=none marker=.

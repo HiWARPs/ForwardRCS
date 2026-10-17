@@ -1,0 +1,11 @@
+xylabel: '$\nu \; [\mathrm{GeV}]$' '$\Sigma_{2z}\,(\theta=0)$'
+
+minx: 0.1
+maxx: 0.2
+miny: -1.2
+maxy: 0.4
+
+linewidth: 1.5
+
+plot: 1 2 source=amp/s2z_1.out color=red  linewidth=1.5
+plot: 1 2 source=amp/s2z_2.out color=blue linewidth=1.5  linestyle=--

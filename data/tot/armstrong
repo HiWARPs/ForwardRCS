@@ -1,0 +1,2 @@
+xylabel: 'k, GeV' 'Total cross section, mcb'
+plot: 1 2 yerror=3 label="Armstrong data (1972)" source='armstrong.dat'

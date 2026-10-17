@@ -1,0 +1,24 @@
+xylabel: "cut-off  $[\mathrm{GeV}]$" "sum rule value"
+
+size: 10 6.5
+
+xlogscale:
+
+xticks: 0.145 0.309 1 2
+yticks: 0 2 4 6 8 10 12 14 4.36 4.42 6.01 6.08 13.86 14.29
+
+maxx: 2
+minx: 0.145
+maxy: 15
+
+linewidth: 1.6
+
+plot: 1 2 source=tot/2_1_logx.out  label='Baldin sum rule [10$^{-4}$ fm$^3$], fit I'     linestyle=-      color=green
+plot: 1 2 source=tot/2_2_logx.out  label='Baldin sum rule [10$^{-4}$ fm$^3$], fit II'    linestyle=[7,4]  color=red
+
+plot: 1 2 source=tot/4_1_logx.out  label='4th order sum rule [10$^{-4}$ fm$^5$], fit I'  linestyle=-      color=orange
+plot: 1 2 source=tot/4_2_logx.out  label='4th order sum rule [10$^{-4}$ fm$^5$], fit II' linestyle=[7,4]  color=blue
+
+plot: 1 2 source=tot/6_1_logx.out  label='6th order sum rule [10$^{-4}$ fm$^7$], fit I'  linestyle=-      color=grey
+plot: 1 2 source=tot/6_2_logx.out  label='6th order sum rule [10$^{-4}$ fm$^7$], fit II' linestyle=[7,4]  color=black
+

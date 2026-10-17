@@ -1,0 +1,15 @@
+xylabel: "$\nu \; [\mathrm{GeV}]$" "$f \;\; [\upmu \mathrm{b} \cdot \mathrm{GeV}]$"
+
+linewidth: 1.5
+
+miny: -15
+maxy: 25
+minx: 0.0
+maxx: 2.1
+
+plot: 1 2 yerr=3 linestyle=None marker=s color=grey  source=../data/tot/armstrong_imf.dat  label="Armstrong $et\,al.$"
+
+plot: 1 2 source=amp/f_1.out  color=red    linewidth=1.6 label='$\mathrm{Re}\,f$  (fit I)'   linestyle=-
+plot: 1 2 source=amp/f_2.out  color=blue   linewidth=1.4 label='$\mathrm{Re}\,f$  (fit II)'  linestyle=--
+plot: 1 3 source=amp/f_1.out  color=red    linewidth=2.0 label='$\mathrm{Im}\,f$  (fit I)'   linestyle=[18,2,2,2]
+plot: 1 3 source=amp/f_2.out  color=blue   linewidth=1.8 label='$\mathrm{Im}\,f$  (fit II)'  linestyle=[8,2,4,2]

@@ -1,0 +1,9 @@
+xylabel: '$\nu \; [\mathrm{GeV}]$' '$(\mathrm{d}\sigma/\mathrm{d}\Omega_{\mathrm{lab}})\,(\theta=0) \;\; [\mathrm{nb}]$'
+
+linewidth: 1.5
+
+miny: -0.0001
+maxy: 25
+
+plot: 1 2 source=amp/ds_1_small.out color=red
+plot: 1 2 source=amp/ds_2_small.out color=blue  linestyle=--

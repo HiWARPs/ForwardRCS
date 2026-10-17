@@ -1,0 +1,15 @@
+xylabel: "$\nu \; [\mathrm{GeV}]$" "$g \;\; [\upmu \mathrm{b} \cdot \mathrm{GeV}]$"
+
+linewidth: 1.5
+
+miny: -5
+maxy: 1.2
+minx: 0.01
+maxx: 0.3
+
+plot: 1 2 source=yzero color=blue linewidth=1
+
+plot: 1 2 source=amp/g.out  color=black  linewidth=1.8 label='$\mathrm{Re}\,g$'   linestyle=-
+plot: 1 3 source=amp/g_thr.out  color=black  linewidth=1.8 label='$\mathrm{Im}\,g$'   linestyle=[11,5]
+
+plot: 1 2 yerr=3 linestyle=None marker=s color=magenta source=../data/pol/data_img.dat        label='MAMI + ELSA'

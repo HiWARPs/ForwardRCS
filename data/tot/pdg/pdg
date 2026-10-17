@@ -1,0 +1,16 @@
+title: PDG data 2014
+xylabel: 'k, GeV' 'Total cross section, mcb'
+marker: .
+xlogscale:
+
+include: armstrong
+include: bloom
+include: dieterle
+include: hilpert
+include: meyer
+include: michalowski
+include: ballam
+include: caldwell
+include: vereshkov
+include: aid
+include: chekanov

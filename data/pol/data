@@ -1,0 +1,2 @@
+include: data.dat
+plot: 1 2 yerr=3 linestyle=None marker=o label='$\frac{1}{2}(\sigma_{3/2}-\sigma_{1/2})$ (MAMI + ELSA)'

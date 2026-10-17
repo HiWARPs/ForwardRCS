@@ -1,0 +1,19 @@
+xylabel: '$\nu \; [\mathrm{GeV}]$' '$\sigma^{\gamma p} \; [\upmu \mathrm{b}]$'
+
+linestyle: None
+marker: None
+
+xlogscale:
+minx: 0.1
+maxx: 40000
+miny: 0
+maxy: 600
+
+#plot: 1 2        source=../data/tot/maid.dat   linestyle=[4,2]       linewidth=2    color=violet
+plot: 1 2        source=../data/tot/said.dat   linestyle=[8,2]       linewidth=1.8  color=black  label="SAID"
+plot: 1 2 yband=3       source=./tot/cs_1_logx.out    linestyle=-           linewidth=1.8  color=black  label="Gryniuk $et\,al.$"
+#plot: 1 2 yband=3       source=./tot/cs_2_logx.out    linestyle=[11,5]      linewidth=0.8  color=blue  label="Gryniuk $et\,al.$"
+
+plot: 1 2 yerr=3 source=../data/tot/pdg/caldwell.dat   label="Caldwell $et\,al.$" marker=v   color=cyan
+plot: 1 2 yerr=3 source=../data/tot/pdg/aid.dat        label="H1 Coll."   marker=>   color=red
+plot: 1 2 yerr=3 source=../data/tot/pdg/chekanov.dat   label="ZEUS Coll." marker=<   color=green

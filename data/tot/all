@@ -1,0 +1,3 @@
+include: all_data
+include: all_fits
+include: maid

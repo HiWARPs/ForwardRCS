@@ -1,0 +1,2 @@
+include: said.dat
+plot: 1 2 label='SAID $\Delta\sigma$'

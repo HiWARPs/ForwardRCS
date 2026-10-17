@@ -1,0 +1,15 @@
+xylabel: "cut-off  $[\mathrm{GeV}]$" "sum rule value"
+
+xlogscale:
+
+xticks: 0.145 0.309 1 2 10 100 1000
+yticks: -100 -50 0 50 100 150 200 250 204.5 -92.9 48.4
+
+maxx: 1000
+minx: 0.145
+maxy: 250
+miny: -120
+
+plot: 1 2x39.47841760435743 yband=3  linewidth=1.4  linestyle=-         color=red   source=pol/1_logx.out  label='$I_\mathrm{GDH}$  [$\upmu$b]'
+plot: 1 2x-100              yband=3  linewidth=1.2  linestyle=[8,3]     color=grey  source=pol/3_logx.out  label='$\gamma_0$  [$10^{-6}$ fm$^4$]'
+plot: 1 2x-100              yband=3  linewidth=1.4  linestyle=[1,3,6,3] color=green source=pol/5_logx.out  label='$\bar{\gamma_0}$  [$10^{-6}$ fm$^6$]'

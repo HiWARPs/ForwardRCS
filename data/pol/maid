@@ -1,0 +1,3 @@
+include: maid.dat
+plot: 1 2 label='MAID: $\frac{1}{2}(\sigma_{3/2}-\sigma_{1/2})$'
+plot: 1 3 label='MAID: $\frac{1}{2}(\sigma_{3/2}+\sigma_{1/2})$'

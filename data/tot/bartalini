@@ -1,0 +1,2 @@
+xylabel: 'k, GeV' 'Total cross section, mcb'
+plot: 1 2 yerror=3 label="Bartalini data (2007)" source='bartalini.dat'

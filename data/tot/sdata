@@ -1,0 +1,2 @@
+maxx: 5
+plot: 1 2 yerr=3 source=sdata.dat marker=. linestyle=none

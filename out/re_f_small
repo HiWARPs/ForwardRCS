@@ -1,0 +1,21 @@
+xylabel: "$\nu \; [\mathrm{GeV}]$" "$\mathrm{Re} \, f \;\; [\upmu \mathrm{b} \cdot \mathrm{GeV}]$"
+
+size: 4 3.6
+
+minx: -0.001
+maxx: 0.32
+miny: -4
+maxy: 5.2
+
+xminorticks: 0.1
+
+xticks: 0 0.1514 0.3
+yticks: -3.03 0
+
+plot: 1 2 yerr=3 source=../data/tot/f_data.dat      linestyle=None          color=black  linewidth=2  marker=o
+
+plot: 1 2        source=../data/tot/f_damashek.dat  linestyle=[2,2]         color=orange linewidth=2
+plot: 1 2        source=../data/tot/f_armstrong.dat linestyle=[6,2,1,2,1,2] color=black  linewidth=1
+plot: 1 2        source=./tot/f_ahrens.out          linestyle=[9,2,1,2]     color=green  linewidth=1
+plot: 1 2 yband=3       source=./tot/f_1.out               linestyle=-             color=red    linewidth=1.2
+plot: 1 2 yband=3       source=./tot/f_2.out               linestyle=[8,2]         color=blue   linewidth=1.2

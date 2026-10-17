@@ -1,0 +1,19 @@
+plot: 1 2 color=green
+plot: 3 4                   linewidth=1 linestyle=None marker=o color=yellow
+plot: 5 7   xerr=6  yerr=8  linewidth=1 linestyle=None marker=v color=red
+plot: 9 11  xerr=10 yerr=12 linewidth=1 linestyle=None marker=s color=blue
+plot: 13 15 xerr=14 yerr=16 linewidth=1 linestyle=None marker=h color=purple
+
+size: 8 6
+
+xylabel: "$\alpha_{E\nu} +\, \frac{1}{12} \alpha_{E2},\;[10^{-4}\mathrm{fm}^5]$" "$\beta_{M\nu} +\, \frac{1}{12} \beta_{M2},\;[10^{-4}\mathrm{fm}^5]$"
+
+minx: -2.7
+maxx: 5.8
+miny: -0.001
+maxy: 8.001
+
+-5.9 11.8    -1.45 7.2333333    1.925 0.63525 1.1 0.363    0.1416667 0.6 5.8083333 0.8       4.241666666666667 1.3997500000000003 2.9083333333333337 0.95975
+11.8 -5.9
+12.4 -6.2
+-6.2 12.4

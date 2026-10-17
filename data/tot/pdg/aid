@@ -1,0 +1,1 @@
+plot: 1 2 yerr=3 label='AID 1995' source='aid.dat'

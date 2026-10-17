@@ -1,0 +1,1 @@
+plot: 1 2 yerr=3 label='Michalowski 1977' source='michalowski.dat'

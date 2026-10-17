@@ -1,0 +1,4 @@
+maxx: 2
+maxy: 600
+marker: .
+plot: 1 2 source=said.dat label=SAID

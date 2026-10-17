@@ -1,0 +1,1 @@
+plot: 1 2 yerr=3 label='Chekanov 2002' source='chekanov.dat'

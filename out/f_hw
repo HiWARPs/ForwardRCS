@@ -1,0 +1,17 @@
+xylabel: "$\nu \; [\mathrm{GeV}]$" "$f \;\; [\upmu \mathrm{b} \cdot \mathrm{GeV}]$"
+
+linewidth: 1.5
+
+miny: -3.03
+maxy: 6
+minx: 0.01
+maxx: 0.3
+
+plot: 1 2 source=yzero color=blue linewidth=1
+
+plot: 1 2 source=amp/f_1.out  color=black  linewidth=1.8 label='$\mathrm{Re}\,f$'   linestyle=-
+plot: 1 3 source=amp/f_1_thr.out  color=black  linewidth=1.8 label='$\mathrm{Im}\,f$'   linestyle=[11,5]
+
+#plot: 1 2 yerr=3 linestyle=None marker=s color=black  source=../data/tot/armstrong_imf.dat  label="Armstrong $et\,al.$"
+plot: 1 2 yerr=3 linestyle=None marker=o color=green  source=../data/tot/maccormick_imf.dat label="MacCormick $et\,al.$"
+plot: 1 2 yerr=3 linestyle=None marker=^ color=orange source=../data/tot/bnl_imf.dat        label='LEGS Coll.'

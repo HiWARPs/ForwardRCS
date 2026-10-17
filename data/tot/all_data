@@ -1,0 +1,3 @@
+include: armstrong maccormick bartalini
+plot: 1 2 yerror=3 label="Ahrens data" source='ahrens_data.dat'
+maxx: 4.

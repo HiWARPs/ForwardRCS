@@ -1,0 +1,5 @@
+include: data0.dat
+plot: 1 2 yerr=3 linestyle=None marker=o label='$\frac{1}{2}(\sigma_{3/2}+\sigma_{1/2})$'
+plot: 1 4 yerr=5 linestyle=None marker=o label='$\frac{1}{2}(\sigma_{3/2}-\sigma_{1/2})$'
+plot: 1 6 label='$\sigma_{3/2}$'
+plot: 1 7 label='$\sigma_{1/2}$'

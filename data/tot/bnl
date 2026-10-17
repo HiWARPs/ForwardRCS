@@ -1,0 +1,1 @@
+plot: 1 2 yerr=3 source='bnl.dat' label='BNL'

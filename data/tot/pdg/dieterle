@@ -1,0 +1,1 @@
+plot: 1 2 yerr=3 label='Dieterle 1969' source='dieterle.dat'

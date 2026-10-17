@@ -1,0 +1,24 @@
+xylabel: "$\nu^2 \; [\mathrm{GeV}^2]$" "$\mathrm{Re}\left(f(\nu^2) - f(0)\right)/\nu^2 \;\; [10^{-4}\,\mathrm{fm}^3]$"
+
+xlogscale:
+
+size: 10 6.5
+
+minx: 0.005
+maxx: 9.5
+miny: -9
+maxy: 28
+
+#xminorticks: 0.1
+
+#xticks: 0 1 2 2.2 3
+#yticks: -15 -12.3 -10 -5 -3.03 0 5
+
+linewidth: 1
+
+plot: 4 5           source=re_f1.out   label='Damashek-Gilman'         linestyle=[2,2]         color=orange linewidth=2
+plot: 6 7           source=re_f1.out   label='Armstrong $et\,al.$'     linestyle=[6,2,1,2,1,2] color=black  linewidth=1
+plot: 8 9           source=re_f1.out   label='A2 Collaboration'        linestyle=[9,2,1,2]     color=green  linewidth=1
+plot: 1 2 yband=3   source=re_f1.out   label='Gryniuk $et\,al.$'  linestyle=-      linewidth=1.5     color=red
+
+plot: 1 2 yerr=3 source=../data/tot/f1_data.dat      label='Alvensleben $et\,al.$'   linestyle=None          color=black  linewidth=2  marker=o

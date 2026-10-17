@@ -1,0 +1,22 @@
+xylabel: '$\nu \; [\mathrm{GeV}]$' '$\sigma_{\mathrm{abs}} \; [\upmu \mathrm{b}]$'
+
+size: 10 6.5
+
+linestyle: None
+marker: None
+
+minx: 0.14
+maxx: 1.5
+miny: 0
+maxy: 600
+
+plot: 1 2         source=../data/tot/maid.dat   label="MAID"    linestyle=[4,2]      linewidth=3.2  color=violet
+plot: 1 2         source=../data/tot/said.dat   label="SAID"    linestyle=[9,2]      linewidth=2.4  color=orange
+
+plot: 1 2 yband=3       source=./tot/cs_1.out           label='fit I'   linestyle=-          linewidth=1.8  color=red
+plot: 1 2 yband=3       source=./tot/cs_2.out           label='fit II'  linestyle=[11,3]     linewidth=2    color=blue
+
+plot: 1 2 yerr=3  source=../data/tot/armstrong.dat      label="Armstrong $et\,al.$"   marker=s              color=black
+plot: 1 2 yerr=5  source=../data/tot/maccormick.dat     label="MacCormick $et\,al.$"  marker=o              color=green
+plot: 1 2 yerr=3  source=../data/tot/bnl.dat            label='LEGS Collaboration'    marker=^              color=yellow
+plot: 1 2 yerr=3  source=../data/tot/bartalini.dat      label="Bartalini $et\,al.$"   marker=s              color=cyan

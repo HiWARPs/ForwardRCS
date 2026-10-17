@@ -1,0 +1,20 @@
+xylabel: "$\nu \; [\mathrm{GeV}]$" "$f \;\; [\upmu \mathrm{b} \cdot \mathrm{GeV}]$"
+
+linewidth: 1.5
+
+miny: -3.03
+maxy: 5
+minx: 0.01
+maxx: 0.25
+
+plot: 1 2 source=../data/tot/chipt.dat color=black linewidth=2   label='$\mathrm{Re}\,f\;(\upchi \mathrm{PT})$' linestyle=-
+plot: 1 3 source=../data/tot/chipt.dat color=black linewidth=1.8 label='$\mathrm{Im}\,f\;(\upchi \mathrm{PT})$' linestyle=[9,3,3,3]
+
+plot: 1 2 source=amp/f_1.out  color=red  linewidth=1.4 label='$\mathrm{Re}\,f$  (fit I)'   linestyle=[17,2,2,2]
+plot: 1 2 source=amp/f_2.out  color=blue linewidth=1.4 label='$\mathrm{Re}\,f$  (fit II)'  linestyle=[17,2,2,2,2,2]
+plot: 1 3 source=amp/f_1.out  color=red  linewidth=1.4 label='$\mathrm{Im}\,f$  (fit I)'   linestyle=[15,3]
+plot: 1 3 source=amp/f_2.out  color=blue linewidth=1.4 label='$\mathrm{Im}\,f$  (fit II)'  linestyle=[6,4]
+
+#plot: 1 2 yerr=3 linestyle=None marker=s color=black  source=../data/tot/armstrong_imf.dat  label="Armstrong $et\,al.$"
+plot: 1 2 yerr=3 linestyle=None marker=o color=green  source=../data/tot/maccormick_imf.dat label="MacCormick $et\,al.$"
+plot: 1 2 yerr=3 linestyle=None marker=^ color=orange source=../data/tot/bnl_imf.dat        label='LEGS Collaboration'

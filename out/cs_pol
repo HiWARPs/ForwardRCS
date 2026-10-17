@@ -1,0 +1,20 @@
+#xylabel: '$\nu \; [\mathrm{GeV}]$' '$\sigma_{3/2} - \sigma_{1/2} \; [\upmu \mathrm{b}]$'
+xylabel: '$\nu \; [\mathrm{GeV}]$' '$\Delta\sigma_\mathrm{abs} \; [\upmu \mathrm{b}]$'
+
+#size: 10 6.5
+
+linestyle: None
+marker: None
+
+minx: 0.1
+maxx: 1.5
+miny: -170
+maxy: 560
+
+plot: 1 2x2         source=./pol/born.out         label='Born $\pi^+n + \pi^0p$'    linestyle=[2,2,10,2]      linewidth=1.4  color=grey
+
+plot: 1 2x2         source=../data/pol/maid.dat   label="MAID"    linestyle=[6,2]      linewidth=2.4  color=violet
+plot: 1 2x2         source=../data/pol/said.dat   label="SAID"    linestyle=[3,1]      linewidth=3.0  color=orange
+plot: 1 2x2 yband=3        source=./pol/cs.out           label='fit'     linestyle=-          linewidth=1.6  color=blue
+
+plot: 1 2x2 yerr=3  source=../data/pol/data_mami_elsa.dat  label="MAMI + ELSA"   marker=o     markersize=5           color=black

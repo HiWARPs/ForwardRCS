@@ -1,0 +1,5 @@
+maxx: 2
+xylabel: 'k, GeV' 'Total cross section, mcb'
+xlogscale:
+plot: 1 2 yerror=3 label="Ahrens data" source='ahrens_data.dat'
+plot: 1 2 yerror=3 label="Ahrens fit" source='ahrens_fit.dat'

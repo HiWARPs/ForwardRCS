@@ -1,0 +1,1 @@
+plot: 1 2 yerr=3 label='Ballam 1972' source='ballam.dat'
