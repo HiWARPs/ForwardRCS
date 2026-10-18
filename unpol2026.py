@@ -15,8 +15,9 @@
 # Usage (from the repository root):
 #   python unpol2026.py          results/2026/unpol_* from the stored fit data/2026/unpol_fit.json
 #   python unpol2026.py fit      redo the PWA table and the fit first
-# Inputs: data/2026/db_unpolarized.csv (curated database), data/tot/maid.dat, data/2026/unpol_said_sm22.dat.  Outputs: data/2026/unpol_pwa_threshold.dat,
-# data/2026/unpol_fit.json; results/2026/unpol_sumrules.json, unpol_f.txt, unpol_variants.txt/.json.
+# Inputs: data/2026/db_unpolarized.csv (curated database), data/tot/maid.dat, data/2026/unpol_said_sm22.dat, data/2026/unpol_sigma_el.dat.  Outputs:
+# data/2026/unpol_pwa_threshold.dat, data/2026/unpol_fit.json; results/2026/unpol_sumrules.json, unpol_f.txt, unpol_selection.txt, unpol_missing.txt,
+# unpol_variants.txt/.json.
 # Summary of the method and results: README.md (section 2026 update).
 
 import os, sys, json, csv, time
@@ -597,11 +598,74 @@ def selection_systematic(out=RES, quiet=False):	# half the difference of the two
 		print('data-selection systematic: ' + ', '.join('SR%s %.3f' % (n, srs[n]['half_difference']) for n in ('2', '4', '6')))
 	return srs
 
+
+#--------------------------------------------------------------------------------------------------- channels absent from the database (one-sided)
+EL = os.path.join(D, 'unpol_sigma_el.dat')	# sigma(gamma p -> gamma p) of NNLO BChPT on 5-450 MeV
+K_EL = 0.45
+
+class Elastic:	# the elastic channel, absent from every hadronic sigma: the table up to K_EL (constant below its first node), above K_EL
+	# r sigma_abs with r = sigma_el/sigma_abs at K_EL (a bound: r falls from 0.5 % to about 0.1 % at 10 GeV). sigma_el >= 0, so it can only raise f.
+
+	def __init__(self, F, fn=EL):
+		T = numpy.loadtxt(fn)
+		self.F, self.x, self.s, self.sB = F, numpy.r_[0., T[:, 0]], numpy.r_[T[0, 1], T[:, 1]], numpy.r_[T[0, 2], T[:, 2]]
+		self.r = self.s[-1]/F.sigma(K_EL)
+		x, w = _gl(K_EL, 3., 510)
+		t, v = _gl(log(3.), log(1e10), 600)
+		self.gx, self.gw = numpy.r_[x, exp(t)], numpy.r_[w, v*exp(t)]
+		self.gs = self.r*model(self.gx, F.p, F.E2, F.a)
+
+	def sigma(self, k):
+		return float(numpy.interp(k, self.x, self.s)) if k <= K_EL else self.r*self.F.sigma(k)
+
+	def sr(self, n, a=E0, s=None):	# hc^(n-1)/(2 pi^2) int_a^inf sigma/k^n -> (table part, part above K_EL); s: other table values
+		s = self.s if s is None else s
+		m = self.x > a
+		x, y = numpy.r_[a, self.x[m]], numpy.r_[numpy.interp(a, self.x, s), s[m]]/numpy.r_[a, self.x[m]]**n
+		c = float(hc)**(n-1)/(2*pi**2)
+		return c*numpy.sum(numpy.diff(x)*(y[1:] + y[:-1])/2), c*numpy.sum(self.gw*self.gs/self.gx**n)
+
+	def re_f(self, k):	# k^2/(2 pi^2) PV int_0^inf sigma/(p^2 - k^2), subtracted at k (PV int_0^inf dp/(p^2 - k^2) = 0); finite for k > 0
+		sk = self.sigma(k)
+		with numpy.errstate(divide='ignore', invalid='ignore'):
+			y = (self.s - sk)/(self.x**2 - k**2)
+		for i in numpy.where(~numpy.isfinite(y))[0]:	# k on a node: mean of the neighbours (as Fast._lin_f)
+			y[i] = numpy.mean([y[j] for j in (i-1, i+1) if 0 <= j < len(y) and numpy.isfinite(y[j])])
+		return k**2*(numpy.sum(numpy.diff(self.x)*(y[1:] + y[:-1])/2) + numpy.sum(self.gw*(self.gs - sk)/(self.gx**2 - k**2)))/(2*pi**2)
+
+	def im_f(self, k):
+		return k*self.sigma(k)/(4*pi)
+
+def missing_channels(out=RES, quiet=False):	# one-sided (upward) systematic: sum rules from E0 (below, sigma_el -> Thomson makes int sigma/k^2
+	# IR divergent: that region belongs to the O(alpha) radiative corrections, excluded from alpha+beta as defined), f from 0
+	r = json.load(open(FIT))
+	el = Elastic(Fast(shifted(read_table(), r['t']), r['E2'], r['a']).set_p(numpy.array(r['p'])))
+	srs = {}
+	for n in (2, 4, 6):
+		a, b = el.sr(n)
+		srs['%d' % n] = {'E0-0.45 GeV (NNLO)': a, 'above 0.45 GeV (bound)': b, 'total': a + b, 'E0-0.45 GeV, non-Born part': el.sr(n, s=el.s - el.sB)[0]}
+	srs.update(r_above=el.r, info='elastic channel gamma p -> gamma p (data/2026/unpol_sigma_el.dat), absent from the hadronic sigma; positive, hence a'
+		' one-sided (upward) systematic. Sum rules from E0; above 0.45 GeV sigma_el <= r sigma_abs. Re f, Im f: results/2026/unpol_missing.txt.')
+	rows = [(k, el.re_f(k), el.im_f(k)) for k in NU_TAB]
+	os.makedirs(out, exist_ok=True)
+	numpy.savetxt(os.path.join(out, 'unpol_missing.txt'), numpy.array(rows), fmt='%.3f   %.8f   %.8f',
+		header='one-sided systematic of f(nu) from the elastic channel gamma p -> gamma p, absent from the hadronic sigma (unpol2026.missing_channels):\n'
+		'the shift f -> f + df (dispersive, sigma_el from 0; data/2026/unpol_sigma_el.dat, above 0.45 GeV sigma_el <= r sigma_abs)\n'
+		'nu (GeV)   dRe f   dIm f   (mcb*GeV)')
+	fn = os.path.join(out, 'unpol_sumrules.json')
+	res = json.load(open(fn))
+	res['missing_channels'] = srs
+	json.dump(res, open(fn, 'w'), indent=1)
+	if not quiet:
+		print('missing channels (one-sided, upward): ' + ', '.join('SR%s +%.3f' % (n, srs[n]['total']) for n in ('2', '4', '6')))
+	return srs
+
 if __name__ == '__main__':
 	t0 = time.time()
 	if 'fit' in sys.argv[1:] or not os.path.exists(FIT):
 		fit()
 	results()
 	selection_systematic()
+	missing_channels()
 	variants()
 	print('run time %.0f s' % (time.time() - t0))

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Re f and Re g of the 2026 update at given photon lab energies, for use as data points in other fits:
 values, the full exp+fit covariance (from the covariances of unpol2026 and pol2026; f and g are independent),
-and the separate systematics as signed modes (data selection of f, PWA model of g below 0.2 GeV).
+and the separate systematics as signed modes (data selection of f, PWA model of g below 0.2 GeV) and the one-sided shift of f by
+the elastic channel gamma p -> gamma p, absent from the hadronic cross section (unpol2026.Elastic).
 
 	python tools/export_forward.py [E1 E2 ... in MeV]  ->  results/2026/forward_points.json
 (default energies: those of the forward points of the 2026 Chiral-EFT paper, 50-150 MeV).
@@ -20,6 +21,8 @@ with contextlib.redirect_stdout(io.StringIO()):
 	import unpol2026, pol2026
 	wt, wp = unpol2026.WholeRegion2026(), pol2026.WholeRegionPol2026('bw')
 	sel = [unpol2026.selection_fit(c)[0] for nm, c in unpol2026.SELECTIONS]	# fits restricted to the GHP15 fit-I and fit-II data
+	r = json.load(open(unpol2026.FIT))
+	el = unpol2026.Elastic(unpol2026.Fast(unpol2026.shifted(unpol2026.read_table(), r['t']), r['E2'], r['a']).set_p(numpy.array(r['p'])))
 	pw = {a: pol2026.WholeRegionPol2026('bw', pwa=a) for a in ('maid', 'sm22', 'cm12')}	# central PWA tables below 0.2 GeV
 
 k = numpy.array(E_MEV)/1000.
@@ -31,6 +34,7 @@ Cf, Cg = Jf @ wt.get_pcov() @ Jf.T, Jg @ wp.get_pcov() @ Jg.T
 assert numpy.allclose(numpy.sqrt(numpy.diag(Cf)), [wt.re_f(x).err for x in k], rtol=1e-6)	# = the propagated errors of re_f, re_g
 assert numpy.allclose(numpy.sqrt(numpy.diag(Cg)), [wp.re_g(x).err for x in k], rtol=1e-6)
 sel_f = numpy.array([(sel[0].re_f(x) - sel[1].re_f(x))/2 for x in k])	# signed: (fit-I selection - fit-II selection)/2
+miss_f = numpy.array([el.re_f(x) for x in k])	# one-sided: Re f -> Re f + lambda miss_f, 0 <= lambda <= 1
 alt = {a: numpy.array([float(w.integral_g_subtracted(x, err=False)) for x in k]) for a, w in pw.items()}
 i, j = max(((a, b) for a in alt for b in alt if a < b), key=lambda ab: numpy.abs(alt[ab[0]] - alt[ab[1]]).max())
 pwa_g = (alt[i] - alt[j])/2	# signed half difference of the most different pair of central PWA tables
@@ -43,13 +47,14 @@ out = dict(
 	info='Re f, Re g [mcb GeV] of the 2026 update (unpol2026.py, pol2026.py) at the photon lab energies E [MeV]. cov_f, cov_g: exp+fit '
 		'covariance (f and g independent). sel_f: data-selection systematic of f, signed mode (GHP15 fit-I minus fit-II data, halved); '
 		'pwa_g: PWA-model systematic of g, signed mode (half the difference of the two most different central PWA tables below 0.2 GeV: '
-		'%s, %s). Made by tools/export_forward.py.' % (i, j),
-	E=E_MEV, re_f=f.tolist(), re_g=g.tolist(), cov_f=Cf.tolist(), cov_g=Cg.tolist(), sel_f=sel_f.tolist(), pwa_g=pwa_g.tolist(),
+		'%s, %s). miss_f: one-sided shift of Re f by the elastic channel gamma p -> gamma p, absent from the hadronic sigma (positive '
+		'cross section, so f -> f + lambda miss_f with 0 <= lambda <= 1; NNLO BChPT sigma_el, unpol2026.Elastic). Made by tools/export_forward.py.' % (i, j),
+	E=E_MEV, re_f=f.tolist(), re_g=g.tolist(), cov_f=Cf.tolist(), cov_g=Cg.tolist(), sel_f=sel_f.tolist(), pwa_g=pwa_g.tolist(), miss_f=miss_f.tolist(),
 	err_f=numpy.sqrt(numpy.diag(Cf)).tolist(), err_g=numpy.sqrt(numpy.diag(Cg)).tolist(),
 	modes_f=modes(Cf), modes_g=modes(Cg), pwa_pair=[i, j])
 os.makedirs(os.path.join('results', '2026'), exist_ok=True)
 json.dump(out, open(os.path.join('results', '2026', 'forward_points.json'), 'w'), indent=1)
-print('E [MeV]  Re f  err  sel   Re g  err  pwa')
-for r in zip(E_MEV, f, out['err_f'], sel_f, g, out['err_g'], pwa_g):
-	print('%5.0f  %9.5f %8.5f %8.5f   %9.5f %8.5f %8.5f' % r)
+print('E [MeV]  Re f  err  sel  miss   Re g  err  pwa')
+for r in zip(E_MEV, f, out['err_f'], sel_f, miss_f, g, out['err_g'], pwa_g):
+	print('%5.0f  %9.5f %8.5f %8.5f %8.5f   %9.5f %8.5f %8.5f' % r)
 print('leading-mode fraction of the exp+fit variance: f %.4f, g %.4f' % (out['modes_f'][1], out['modes_g'][1]))

@@ -172,6 +172,13 @@ class Update2026(unittest.TestCase):	# the 2026 fits as stored in data/2026/*_fi
 			self.check(self.w['f'].re_f(k), rf, '2026 Re f(%g GeV)' % k)
 			self.check(self.w['g'].re_g(k), rg, '2026 Re g(%g GeV)' % k)
 
+	def test_missing_channels(self):	# elastic channel, one-sided: SR2/4/6 from E0 (table + bound above 0.45 GeV), Re f shift at 0.1 GeV
+		import unpol2026 as U
+		el = U.Elastic(U.Fast(U.shifted(U.read_table(), self.w['f'].result['t']), U.E2).set_p(numpy.array(self.w['f'].result['p'])))
+		for n, ref in ((2, 0.068749), (4, 0.026072), (6, 0.017769)):
+			self.assertAlmostEqual(sum(el.sr(n)), ref, delta=2e-6, msg='elastic SR%d' % n)
+		self.assertAlmostEqual(el.re_f(0.1), 0.0030783, delta=2e-7)
+
 
 if __name__ == '__main__':
 	unittest.main()

@@ -1,5 +1,5 @@
 {
- "info": "Re f, Re g [mcb GeV] of the 2026 update (unpol2026.py, pol2026.py) at the photon lab energies E [MeV]. cov_f, cov_g: exp+fit covariance (f and g independent). sel_f: data-selection systematic of f, signed mode (GHP15 fit-I minus fit-II data, halved); pwa_g: PWA-model systematic of g, signed mode (half the difference of the two most different central PWA tables below 0.2 GeV: cm12, sm22). Made by tools/export_forward.py.",
+ "info": "Re f, Re g [mcb GeV] of the 2026 update (unpol2026.py, pol2026.py) at the photon lab energies E [MeV]. cov_f, cov_g: exp+fit covariance (f and g independent). sel_f: data-selection systematic of f, signed mode (GHP15 fit-I minus fit-II data, halved); pwa_g: PWA-model systematic of g, signed mode (half the difference of the two most different central PWA tables below 0.2 GeV: cm12, sm22). miss_f: one-sided shift of Re f by the elastic channel gamma p -> gamma p, absent from the hadronic sigma (positive cross section, so f -> f + lambda miss_f with 0 <= lambda <= 1; NNLO BChPT sigma_el, unpol2026.Elastic). Made by tools/export_forward.py.",
  "E": [
   50,
   60,
@@ -409,6 +409,20 @@
   -0.011275049930530967,
   -0.020499937610940933,
   -0.03321701243530245
+ ],
+ "miss_f": [
+  0.0006621680911838257,
+  0.0009804179132979214,
+  0.0013728989804743024,
+  0.0017956884187520295,
+  0.0024119107949840406,
+  0.0030782548741959156,
+  0.0038596025237299415,
+  0.004773374688772454,
+  0.005843945042923512,
+  0.006449445678025702,
+  0.007845955788486257,
+  0.008695078889504488
  ],
  "err_f": [
   0.002374879814078265,

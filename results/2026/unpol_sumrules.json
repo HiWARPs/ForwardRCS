@@ -529,5 +529,27 @@
     "S": 1.0942176319148498
    }
   }
+ },
+ "missing_channels": {
+  "2": {
+   "E0-0.45 GeV (NNLO)": 0.04653854812353393,
+   "above 0.45 GeV (bound)": 0.022210174996121802,
+   "total": 0.06874872311965574,
+   "E0-0.45 GeV, non-Born part": 0.03368683702898092
+  },
+  "4": {
+   "E0-0.45 GeV (NNLO)": 0.024506467548688658,
+   "above 0.45 GeV (bound)": 0.0015657535537455306,
+   "total": 0.02607222110243419,
+   "E0-0.45 GeV, non-Born part": 0.01411409303884604
+  },
+  "6": {
+   "E0-0.45 GeV (NNLO)": 0.017592915787073376,
+   "above 0.45 GeV (bound)": 0.00017589748545277458,
+   "total": 0.01776881327252615,
+   "E0-0.45 GeV, non-Born part": 0.006205985263380051
+  },
+  "r_above": 0.005427733618578231,
+  "info": "elastic channel gamma p -> gamma p (data/2026/unpol_sigma_el.dat), absent from the hadronic sigma; positive, hence a one-sided (upward) systematic. Sum rules from E0; above 0.45 GeV sigma_el <= r sigma_abs. Re f, Im f: results/2026/unpol_missing.txt."
  }
 }

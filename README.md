@@ -134,13 +134,14 @@ $I_\mathrm{GDH}$ lower by 2.0 μb with an error of ±21.4 μb; variant in `resul
 (MAID2007, SM22, CM12), quoted separately.
 
 Results: value ± (exp+fit) ± (systematic). The systematic is the data selection (below) for the unpolarized and the
-partial-wave model below 0.2 GeV for the polarized quantities.
+partial-wave model below 0.2 GeV for the polarized quantities. The unpolarized sum rules have in addition a one-sided,
+upward systematic (in parentheses): the elastic channel γp → γp, which no hadronic cross section contains (below).
 
 | | 2026 | GHP 2015/2016 |
 |---|---|---|
-| α+β [10⁻⁴ fm³] | **14.01 ± 0.18 ± 0.10** | 14.0(2) (average of fits I and II) |
-| 4th order [10⁻⁴ fm⁵] | 5.95 ± 0.09 ± 0.05 | 6.08(12) / 6.01(11) |
-| 6th order [10⁻⁴ fm⁷] | 4.29 ± 0.08 ± 0.04 | 4.36(9) / 4.42(8) |
+| α+β [10⁻⁴ fm³] | **14.01 ± 0.18 ± 0.10 (+0.07)** | 14.0(2) (average of fits I and II) |
+| 4th order [10⁻⁴ fm⁵] | 5.95 ± 0.09 ± 0.05 (+0.03) | 6.08(12) / 6.01(11) |
+| 6th order [10⁻⁴ fm⁷] | 4.29 ± 0.08 ± 0.04 (+0.02) | 4.36(9) / 4.42(8) |
 | $I_\mathrm{GDH}$ [μb] | **209.8 ± 9.2 ± 1.9** | 204.5(21.4) |
 | $\gamma_0$ [10⁻⁶ fm⁴] | **−102.5 ± 8.0 ± 6.2** | −92.9(10.5) |
 | $\overline\gamma_0$ [10⁻⁶ fm⁶] | 44.8 ± 5.8 ± 8.3 | 48.4(8.2) |
@@ -157,23 +158,43 @@ as a separate data-selection systematic: 0.10 in α+β, 0.05 and 0.04 in the 4th
 (`results/2026/unpol_selection.txt`, `results/2026/obs_selection.txt`). An analysis with independent data
 (exclusive channels on the Δ tail) is under way.
 
+**Channels absent from the database (one-sided).** The sum rules hold for the total photoabsorption cross section,
+and a channel left out can only raise them, since every cross section is positive. At the order in α at which the
+polarizabilities are defined, no hadronic channel is missing: below the 2π threshold the PWA table contains the only
+ones, π⁰p and π⁺n, and above it the data are total photoabsorption measurements. Absent from all of them are the
+electromagnetic final states, dominated by elastic scattering γp → γp (pair production is pure QED and is excluded by
+the definition of the polarizabilities). Its cross section, from the parameter-free NNLO BχPT prediction of the 2026
+paper (`data/2026/unpol_sigma_el.dat`; 3.2 μb at the Δ peak, 0.6 % of σ, and within 15 % of the estimate
+4π · 0.8 · (M²/s) dσ/dΩ(0) from the forward amplitude of this code), adds 0.047 to α+β from the pion threshold to
+0.45 GeV (0.034 of it beyond the Born and π⁰-pole terms) and at most 0.022 above, where σ_el ≤ r σ with r = 0.54 %,
+its value at 0.45 GeV (it falls to about 0.1 % at 10 GeV). The sum, +0.07 (4th and 6th order: +0.03, +0.02), is quoted
+as a one-sided systematic; the central values stay hadronic. It is not added to them because it is of order α, like
+the radiative corrections to the hadronic cross sections, which have either sign. Moreover, below the pion threshold
+the Thomson cross section makes its contribution to ∫σ/ν² infrared divergent: at this order the polarizabilities can
+only be defined together with the radiative corrections. The shift of f (dispersive, σ_el from 0, where the integral
+for Re f converges) is in `results/2026/unpol_missing.txt`, that of the observables in `results/2026/obs_missing.txt`
+(+5.8 nb/sr, or 0.9 %, in dσ/dΩ(0) at the Δ peak). It is also in the forward points, as `miss_f` in
+`results/2026/forward_points.json`: +0.0007 to +0.009 μb·GeV at 50–150 MeV, about a quarter of the exp+fit error.
+
 Error budget of α+β: PWA mode 0.140, normalizations 0.043, data 0.011, scale factor 0.106 (in quadrature). Model
 choices not included in the error move α+β by less than 0.1 (normalization widths 2 %/5 %: −0.10/+0.06; junction at
 1.6 GeV: +0.08; data below $E_1$ added: −0.06; see `results/2026/unpol_variants.txt`). For comparison, A2 2026
 quote $I_\mathrm{GDH}$ = 210 ± 2 ± 18 μb.
 
-Amplitudes [μb·GeV] (exp+fit errors in parentheses; the data-selection systematic of Re f in the next row; the
-PWA-model systematic of Re g is in `results/2026/pol_g_pwa_model.txt`):
+Amplitudes [μb·GeV] (exp+fit errors in parentheses; the data-selection systematic and the one-sided elastic-channel
+shift of Re f in the next rows; the PWA-model systematic of Re g is in `results/2026/pol_g_pwa_model.txt`):
 
 | ν [GeV] | 0.05 | 0.10 | 0.15 | 0.20 | 0.30 | 0.50 | 1.0 | 2.2 |
 |---|---|---|---|---|---|---|---|---|
 | Re f | −2.846(2) | −2.222(11) | −0.444(40) | 1.025(45) | 2.033(67) | −4.143(54) | −8.97(21) | −10.66(29) |
 | ± data selection | 0.001 | 0.006 | 0.022 | 0.027 | 0.034 | 0.31 | 0.10 | 0.09 |
+| elastic channel (one-sided) | +0.001 | +0.003 | +0.009 | +0.019 | +0.036 | −0.005 | −0.03 | −0.04 |
 | Re g | −0.2625(3) | −0.538(3) | −0.525(24) | −2.414(40) | −2.978(35) | 0.32(13) | 1.46(31) | 3.16(60) |
 
 Tables in `results/2026`: `unpol_f.txt` (Re f, Im f), `unpol_selection.txt` (its data-selection systematic),
+`unpol_missing.txt` (its elastic-channel shift),
 `pol_g.txt` (Re g, Im g), `pol_g_pwa_model.txt`, `obs.txt` ($d\sigma/d\Omega(0)$, $-2\,\mathrm{Re}\,fg^*$, $\Sigma_{2z}$, by
-`amp2026.py`), `obs_selection.txt`, the sum rules with their error budgets
+`amp2026.py`), `obs_selection.txt`, `obs_missing.txt`, the sum rules with their error budgets
 (`*_sumrules.json`) and the model variants (`*_variants.*`). The databases with the source of every point and the
 normalizations are `data/2026/db_unpolarized.csv` and `data/2026/pol_db.csv`.
 
@@ -189,6 +210,8 @@ normalizations are `data/2026/db_unpolarized.csv` and `data/2026/pol_db.csv`.
   W. J. Briscoe *et al.*, *Extended SAID partial-wave analysis of pion photoproduction* (SM22), Phys. Rev. C 108, 065205 (2023);
   R. L. Workman *et al.*, *Unified Chew-Mandelstam SAID analysis of pion photoproduction data* (CM12), Phys. Rev. C 86, 015202 (2012).
   The SM22 cross sections were obtained from the public SAID interface (`data/2026/*said_sm22.dat`).
+- Elastic channel: σ(γp → γp) of the NNLO amplitude of V. Lensky and V. Pascalutsa, *Predictive powers of chiral
+  perturbation theory in Compton scattering off protons*, Eur. Phys. J. C 65, 195 (2010), as evaluated in the 2026 paper.
 - Regge (polarized): S. D. Bass, M. Skurzok, P. Moskal, *Updating spin-dependent Regge intercepts*, Phys. Rev. C 98, 025209 (2018);
   variant: K. Helbing, *The Gerasimov-Drell-Hearn Sum Rule*, Prog. Part. Nucl. Phys. 57, 405 (2006), as in paper 2.
 
