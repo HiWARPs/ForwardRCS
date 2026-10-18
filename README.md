@@ -31,8 +31,8 @@ photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the
 |---|---|
 | Baldin | $\alpha_{E1}+\beta_{M1} = \frac{1}{2\pi^2}\int \sigma/\nu^2 d\nu$ |
 | 4th, 6th order | $\frac{1}{2\pi^2}\int \sigma/\nu^4\,d\nu$, $\frac{1}{2\pi^2}\int \sigma/\nu^6 d\nu$ |
-| GDH | $ \int \Delta\sigma/\nu d\nu $ compared with  $2\pi^2\alpha\kappa^2/M^2 = 204.78\ \mu$b |
-| forward spin polarizabilities | $\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^3 d\nu$, $\bar\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^5 d\nu$ |
+| GDH | $\int \Delta\sigma/\nu d\nu $ compared with  $2\pi^2\alpha\kappa^2/M^2 = 204.78\ldots$ μb |
+| forward spin polarizabilities | $\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^3 d\nu$, $\overline\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^5 d\nu$ |
 
 Forward observables: $d\sigma/d\Omega(\theta=0) = |f|^2+|g|^2$ and
 $\Sigma_{2z} = -2 \mathrm{Re}(f g^*)/(|f|^2+|g|^2)$.
@@ -42,7 +42,7 @@ $\nu_0$ up to the $2\pi$ threshold $E_1 = 0.309$ GeV, a fit (Breit–Wigner reso
 2 GeV, and a Regge form above. Errors are propagated linearly through the covariance of the fit parameters.
 
 **Units and conventions of the code.** Photon lab energy `k` = $\nu$ in GeV; cross sections in μb;
-amplitudes in μb·GeV (divide $|f|^2$ by $10\,(\hbar c)^2$ for nb/sr); sum rules in $10^{-4} \mathrm{fm}^{3,5,7}$
+amplitudes in μb·GeV (divide $|f|^2$ by $10(\hbar c)^2$ for nb/sr); sum rules in $10^{-4} \mathrm{fm}^{3,5,7}$
 (Baldin, 4th, 6th), μb (GDH), $10^{-6}$ fm$^4$ ($\gamma_0$) and $10^{-6}$ fm$^6$ ($\bar\gamma_0$).
 The polarized data column is $\Delta\sigma/2 = (\sigma_{3/2}-\sigma_{1/2})/2$.
 
