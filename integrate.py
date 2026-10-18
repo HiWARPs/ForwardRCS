@@ -498,7 +498,7 @@ class Region:
 		return self.plot_n(2, *args, **kwargs)
 	
 	def plot_3(self, *args, **kwargs):
-		kwargs.update(kw = {'title': '$\gamma_0$'})
+		kwargs.update(kw = {'title': r'$\gamma_0$'})
 		return self.plot_n(3, *args, **kwargs)
 	
 	def plot_4(self, *args, **kwargs):
@@ -506,7 +506,7 @@ class Region:
 		return self.plot_n(4, *args, **kwargs)
 	
 	def plot_5(self, *args, **kwargs):
-		kwargs.update(kw = {'title': '$\bar{\gamma_0}$'})
+		kwargs.update(kw = {'title': r'$\bar{\gamma_0}$'})
 		return self.plot_n(5, *args, **kwargs)
 	
 	def plot_6(self, *args, **kwargs):
