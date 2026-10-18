@@ -30,8 +30,8 @@ photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the
 | | |
 |---|---|
 | Baldin | $\alpha_{E1}+\beta_{M1} = \frac{1}{2\pi^2}\int \sigma/\nu^2 d\nu$ |
-| 4th, 6th order | $\frac{1}{2\pi^2}\int \sigma/\nu^4\,d\nu$, $\frac{1}{2\pi^2}\int \sigma/\nu^6 d\nu$ |
-| GDH | $\int\Delta\sigma/\nu d\nu$ compared with $2\pi^2\alpha\kappa^2/M^2 = 204.78\ldots$ μb |
+| 4th, 6th order | $\frac{1}{2\pi^2}\int \sigma/\nu^4 d\nu$, $\frac{1}{2\pi^2}\int \sigma/\nu^6 d\nu$ |
+| GDH | $\int \Delta\sigma/\nu d\nu$ compared with $2\pi^2\alpha\kappa^2/M^2 = 204.78\ldots$ μb |
 | forward spin polarizabilities | $\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^3 d\nu$, $\overline\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^5 d\nu$ |
 
 Forward observables: $d\sigma/d\Omega(\theta=0) = |f|^2+|g|^2$ and
