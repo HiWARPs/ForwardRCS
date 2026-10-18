@@ -41,9 +41,9 @@ The cross section is represented in three regions: a partial-wave table (MAID, S
 $\nu_0$ up to the $2\pi$ threshold $E_1 = 0.309$ GeV, a fit (Breit–Wigner resonances plus background) up to
 2 GeV, and a Regge form above. Errors are propagated linearly through the covariance of the fit parameters.
 
-**Units and conventions of the code.** Photon lab energy `k` = $\nu$ in GeV; cross sections in μb;
+**Units and conventions of the code.** Photon lab energy $\nu$ in GeV; cross sections in μb;
 amplitudes in μb·GeV (divide $|f|^2$ by $10(\hbar c)^2$ for nb/sr); sum rules in $10^{-4} \mathrm{fm}^{3,5,7}$
-(Baldin, 4th, 6th), μb (GDH), $10^{-6}$ fm$^4$ ($\gamma_0$) and $10^{-6}$ fm$^6$ ($\bar\gamma_0$).
+(Baldin, 4th, 6th), μb (GDH), $10^{-6} \mathrm{fm}^4$ ($\gamma_0$) and $10^{-6} \mathrm{fm}^6$ ($\overline\gamma_0$).
 The polarized data column is $\Delta\sigma/2 = (\sigma_{3/2}-\sigma_{1/2})/2$.
 
 ## Quick start
