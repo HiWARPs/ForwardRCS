@@ -1,5 +1,5 @@
 # forward observables of the proton, 2026 update (amp2026.py): f from unpol2026.py, g from pol2026.py; errors exp+fit (both covariances)
-# PWA-model systematic of g below 0.2 GeV: results/2026/pol_g_pwa_model.txt (not included)
+# separate systematics: PWA model of g below 0.2 GeV (results/2026/pol_g_pwa_model.txt); data selection of f (results/2026/obs_selection.txt)
  \nu    d sigma/d Omega(0)   error     -2 Re f g^*    error      Sigma_2z      error
 (GeV)      (nb/sr)        (nb/sr)       (nb/sr)       (nb/sr)
 

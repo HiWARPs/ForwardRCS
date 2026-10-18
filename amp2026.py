@@ -48,11 +48,30 @@ def table(nproc=None):
 	os.makedirs(R26, exist_ok=True)
 	with open(os.path.join(R26, 'obs.txt'), 'w') as fo:
 		fo.write('# forward observables of the proton, 2026 update (amp2026.py): f from unpol2026.py, g from pol2026.py; errors exp+fit (both covariances)\n')
-		fo.write('# PWA-model systematic of g below 0.2 GeV: results/2026/pol_g_pwa_model.txt (not included)\n')
+		fo.write('# separate systematics: PWA model of g below 0.2 GeV (results/2026/pol_g_pwa_model.txt); data selection of f (results/2026/obs_selection.txt)\n')
 		fo.write(r' \nu    d sigma/d Omega(0)   error     -2 Re f g^*    error      Sigma_2z      error' + '\n')
 		fo.write(r'(GeV)      (nb/sr)        (nb/sr)       (nb/sr)       (nb/sr)' + '\n\n')
 		fo.write('\n'.join('%.3f   %.8f   %.8f   %.8f   %.8f   %.8f   %.8f' % ((k,) + tuple(r)) for k, r in zip(kk, rows)) + '\n')
 
 
+def selection_table():	# data-selection systematic of the observables: f from the refits on the fit-I and fit-II data of GHP15
+	# (results/2026/unpol_selection.txt, unpol2026.selection_systematic), g from results/2026/pol_g.txt; half the difference
+	sel = {'%.3f' % r[0]: r for r in numpy.loadtxt(os.path.join(R26, 'unpol_selection.txt'))}
+	g = {'%.3f' % r[0]: r for r in numpy.loadtxt(os.path.join(R26, 'pol_g.txt'), skiprows=5)}
+	rows = []
+	for key in sorted(set(sel) & set(g), key=float):
+		k, (re1, re2, im1, im2), (reg, img) = float(key), sel[key][3:7], (g[key][1], g[key][3])
+		o = []
+		for f in (complex(re1, im1), complex(re2, im2)):
+			ds, R = abs(f)**2 + reg**2 + img**2, f.real*reg + f.imag*img
+			o.append((ds/NB, -2*R/NB, -2*R/ds))
+		rows.append([k] + [abs(a - b)/2 for a, b in zip(*o)])
+	numpy.savetxt(os.path.join(R26, 'obs_selection.txt'), numpy.array(rows), fmt='%.3f' + '   %.8f'*3,
+		header='data-selection systematic of the forward observables (amp2026.selection_table): half the difference with f from the 2026 fit\n'
+		'restricted to the data of GHP15 fit I and of fit II (results/2026/unpol_selection.txt), g from results/2026/pol_g.txt\n'
+		'nu (GeV)   d(d sigma/d Omega(0)) (nb/sr)   d(-2 Re f g*) (nb/sr)   d Sigma_2z')
+
+
 if __name__ == '__main__':
 	table()
+	selection_table()

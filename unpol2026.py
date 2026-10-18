@@ -558,10 +558,50 @@ def variants(out=RES, quiet=False):
 	return V
 
 
+
+#--------------------------------------------------------------------------------------------------- data-selection systematic
+SELECTIONS = (('fit-I selection', 'in_code_fitI'), ('fit-II selection', 'in_code_fitII'))	# data of the 2015 fits; they differ on the Delta tail
+	# (0.31-0.47 GeV: Armstrong 72 + LEGS in fit I, MacCormick 96 in fit II), in shape beyond the normalizations
+
+def selection_fit(col):	# the baseline treatment (PWA mode, nuisances, background >= 0, best admissible of the starts) on one 2015 selection
+	T = pwa_table('avg')
+	G = lambda: GlobalFit(load_sets(keep=lambda r: r['use'] == '1' and r[col] == '1'), ([E1], [T[-1, 1]], [CONT]), E2=E2, pos=True, mode=T[-1, 2])
+	R = [G().fit(q, max_nfev=20000, cov=False) for q in (None, P_GHP1, P_GHP2)]
+	g = G().fit(min(R, key=lambda g: (bool(checks(g.q[:NP])), g.chi2)).q)
+	p, n, t = g.split(g.q)
+	return Fast(shifted(T, t), E2).set_p(p), g
+
+def selection_systematic(out=RES, quiet=False):	# half the difference of the two selection refits (quoted separately from the exp+fit error):
+	# sum rules -> unpol_sumrules.json['selection_systematic']; Re f, Im f on the grid of unpol_f.txt -> unpol_selection.txt
+	F, g = zip(*[selection_fit(c) for nm, c in SELECTIONS])
+	half = lambda a, b: abs(a - b)/2
+	srs = {}
+	for n in (2, 4, 6):
+		v = [f.sr(n, E0, inf) for f in F]
+		srs['%d' % n] = dict(zip([nm for nm, c in SELECTIONS], v), half_difference=half(*v))
+	srs['fits'] = {nm: dict(chi2=G.chi2, dof=G.dof, S=G.S) for (nm, c), G in zip(SELECTIONS, g)}
+	rows = []
+	for k in NU_TAB:
+		re, im = [f.re_f(k) for f in F], [k*f.sigma(k)/(4*pi) for f in F]
+		rows.append((k, half(*re), half(*im)) + tuple(re) + tuple(im))
+	os.makedirs(out, exist_ok=True)
+	numpy.savetxt(os.path.join(out, 'unpol_selection.txt'), numpy.array(rows), fmt='%.3f' + '   %.8f'*6,
+		header='data-selection systematic of f(nu) (unpol2026.selection_systematic): half the difference of the 2026 fit restricted to the data of\n'
+		'GHP15 fit I (Armstrong 72 + LEGS on the Delta tail) and of fit II (MacCormick 96); same treatment as the baseline (fast integrator)\n'
+		'nu (GeV)   dRe f   dIm f   Re f(I)   Re f(II)   Im f(I)   Im f(II)   (mcb*GeV)')
+	fn = os.path.join(out, 'unpol_sumrules.json')
+	res = json.load(open(fn))
+	res['selection_systematic'] = srs
+	json.dump(res, open(fn, 'w'), indent=1)
+	if not quiet:
+		print('data-selection systematic: ' + ', '.join('SR%s %.3f' % (n, srs[n]['half_difference']) for n in ('2', '4', '6')))
+	return srs
+
 if __name__ == '__main__':
 	t0 = time.time()
 	if 'fit' in sys.argv[1:] or not os.path.exists(FIT):
 		fit()
 	results()
+	selection_systematic()
 	variants()
 	print('run time %.0f s' % (time.time() - t0))

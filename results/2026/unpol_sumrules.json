@@ -500,5 +500,34 @@
     0.10044171892419793
    ]
   }
+ },
+ "selection_systematic": {
+  "2": {
+   "fit-I selection": 14.302388417851885,
+   "fit-II selection": 14.098024936006853,
+   "half_difference": 0.10218174092251608
+  },
+  "4": {
+   "fit-I selection": 6.152106195953546,
+   "fit-II selection": 6.047096002145734,
+   "half_difference": 0.05250509690390581
+  },
+  "6": {
+   "fit-I selection": 4.4677745543317675,
+   "fit-II selection": 4.389257285218475,
+   "half_difference": 0.03925863455664613
+  },
+  "fits": {
+   "fit-I selection": {
+    "chi2": 252.0912456190264,
+    "dof": 198,
+    "S": 1.1283563750814731
+   },
+   "fit-II selection": {
+    "chi2": 275.3818119784686,
+    "dof": 230,
+    "S": 1.0942176319148498
+   }
+  }
  }
 }

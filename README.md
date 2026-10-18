@@ -131,38 +131,47 @@ $W$ = 2.5 GeV: relativistic Breit–Wigner terms with a smooth background; above
 Moskal (2018). χ²/dof = 209.9/266. The second error is the spread of the partial-wave analyses below 0.2 GeV
 (MAID2007, SM22, CM12), quoted separately.
 
+Results: value ± (exp+fit) ± (systematic). The systematic is the data selection (below) for the unpolarized and the
+partial-wave model below 0.2 GeV for the polarized quantities.
+
 | | 2026 | GHP 2015/2016 |
 |---|---|---|
-| α+β [10⁻⁴ fm³] | **14.01(18)** | 14.0(2) (average of fits I and II) |
-| 4th order [10⁻⁴ fm⁵] | 5.95(9) | 6.08(12) / 6.01(11) |
-| 6th order [10⁻⁴ fm⁷] | 4.29(8) | 4.36(9) / 4.42(8) |
+| α+β [10⁻⁴ fm³] | **14.01 ± 0.18 ± 0.10** | 14.0(2) (average of fits I and II) |
+| 4th order [10⁻⁴ fm⁵] | 5.95 ± 0.09 ± 0.05 | 6.08(12) / 6.01(11) |
+| 6th order [10⁻⁴ fm⁷] | 4.29 ± 0.08 ± 0.04 | 4.36(9) / 4.42(8) |
 | $I_\mathrm{GDH}$ [μb] | **209.8 ± 9.2 ± 1.9** | 204.5(21.4) |
 | $\gamma_0$ [10⁻⁶ fm⁴] | **−102.5 ± 8.0 ± 6.2** | −92.9(10.5) |
 | $\bar\gamma_0$ [10⁻⁶ fm⁶] | 44.8 ± 5.8 ± 8.3 | 48.4(8.2) |
 | $\gamma_0$, GDH sum rule imposed | −98.6 ± 3.6 ± 5.0 | |
 | $\bar\gamma_0$, GDH sum rule imposed | 46.6 ± 4.8 ± 7.9 | |
 
-**Remaining data tension.** The 2015 fits I and II differ in the data used on the high-energy side of the Δ
+**Data selection.** The 2015 fits I and II differ in the data used on the high-energy side of the Δ
 (0.31–0.47 GeV: Armstrong 72 and LEGS in fit I, MacCormick 96 in fit II). Refitting the 2026 model to the two
 selections gives α+β = 14.30(21) and 14.10(21): with fitted normalizations the 0.44 gap shrinks to 0.20. Locally the
 shape difference remains: at 0.40 GeV the two selections give σ = 294 and 272 μb, and Re f differs by up to
-0.6 μb·GeV at 0.45–0.5 GeV. The global fit follows MacCormick there. This data-selection spread (half the
-difference: 0.10 in α+β, up to 0.32 μb·GeV in Re f) is **not** included in the quoted errors.
+0.6 μb·GeV at 0.45–0.5 GeV. The global fit follows MacCormick there. Half the difference of the two refits is quoted
+as a separate data-selection systematic: 0.10 in α+β, 0.05 and 0.04 in the 4th- and 6th-order sum rules, up to
+0.32 μb·GeV in Re f (0.45–0.5 GeV; below 0.3 GeV at most 0.03), and correspondingly for the forward observables
+(`results/2026/unpol_selection.txt`, `results/2026/obs_selection.txt`). An analysis with independent data
+(exclusive channels on the Δ tail) is under way.
 
 Error budget of α+β: PWA mode 0.140, normalizations 0.043, data 0.011, scale factor 0.106 (in quadrature). Model
 choices not included in the error move α+β by less than 0.1 (normalization widths 2 %/5 %: −0.10/+0.06; junction at
 1.6 GeV: +0.08; data below $E_1$ added: −0.06; see `results/2026/unpol_variants.txt`). For comparison, A2 2026
 quote $I_\mathrm{GDH}$ = 210 ± 2 ± 18 μb.
 
-Amplitudes [μb·GeV] (exp+fit errors; for Re g the PWA-model error is in `results/2026/pol_g_pwa_model.txt`):
+Amplitudes [μb·GeV] (exp+fit errors in parentheses; the data-selection systematic of Re f in the next row; the
+PWA-model systematic of Re g is in `results/2026/pol_g_pwa_model.txt`):
 
 | ν [GeV] | 0.05 | 0.10 | 0.15 | 0.20 | 0.30 | 0.50 | 1.0 | 2.2 |
 |---|---|---|---|---|---|---|---|---|
 | Re f | −2.846(2) | −2.222(11) | −0.444(40) | 1.025(45) | 2.033(67) | −4.143(54) | −8.97(21) | −10.66(29) |
+| ± data selection | 0.001 | 0.006 | 0.022 | 0.027 | 0.034 | 0.31 | 0.10 | 0.09 |
 | Re g | −0.2625(3) | −0.538(3) | −0.525(24) | −2.414(40) | −2.978(35) | 0.32(13) | 1.46(31) | 3.16(60) |
 
-Tables in `results/2026`: `unpol_f.txt` (Re f, Im f), `pol_g.txt` (Re g, Im g), `pol_g_pwa_model.txt`, `obs.txt`
-($d\sigma/d\Omega(0)$, $-2\,\mathrm{Re}\,fg^*$, $\Sigma_{2z}$, by `amp2026.py`), the sum rules with their error budgets
+Tables in `results/2026`: `unpol_f.txt` (Re f, Im f), `unpol_selection.txt` (its data-selection systematic),
+`pol_g.txt` (Re g, Im g), `pol_g_pwa_model.txt`, `obs.txt` ($d\sigma/d\Omega(0)$, $-2\,\mathrm{Re}\,fg^*$, $\Sigma_{2z}$, by
+`amp2026.py`), `obs_selection.txt`, the sum rules with their error budgets
 (`*_sumrules.json`) and the model variants (`*_variants.*`). The databases with the source of every point and the
 normalizations are `data/2026/db_unpolarized.csv` and `data/2026/pol_db.csv`.
 
