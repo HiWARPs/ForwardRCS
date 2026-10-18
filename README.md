@@ -106,7 +106,7 @@ Current numbers of the 2015/2016 evaluation (all within the published errors; th
 |---|---|---|
 | $I_\mathrm{GDH}$ [μb] | 204.46(21.37) | 204.5(21.4) |
 | $\gamma_0$ [10⁻⁶ fm⁴] | −92.88(10.39) | −92.9(10.5) |
-| $\bar\gamma_0$ [10⁻⁶ fm⁶] | 48.43(8.23) | 48.4(8.2) |
+| $\overline\gamma_0$ [10⁻⁶ fm⁶] | 48.43(8.23) | 48.4(8.2) |
 
 ## 2026 update
 
@@ -140,9 +140,9 @@ partial-wave model below 0.2 GeV for the polarized quantities.
 | 6th order [10⁻⁴ fm⁷] | 4.29 ± 0.08 ± 0.04 | 4.36(9) / 4.42(8) |
 | $I_\mathrm{GDH}$ [μb] | **207.7 ± 21.4 ± 1.9** | 204.5(21.4) |
 | $\gamma_0$ [10⁻⁶ fm⁴] | **−102.5 ± 8.0 ± 6.2** | −92.9(10.5) |
-| $\bar\gamma_0$ [10⁻⁶ fm⁶] | 44.9 ± 5.8 ± 8.3 | 48.4(8.2) |
+| $\overline\gamma_0$ [10⁻⁶ fm⁶] | 44.9 ± 5.8 ± 8.3 | 48.4(8.2) |
 | $\gamma_0$, GDH sum rule imposed | −102.1 ± 7.5 ± 6.2 | |
-| $\bar\gamma_0$, GDH sum rule imposed | 45.0 ± 5.7 ± 8.4 | |
+| $\overline\gamma_0$, GDH sum rule imposed | 45.0 ± 5.7 ± 8.4 | |
 
 **Data selection.** The 2015 fits I and II differ in the data used on the high-energy side of the Δ
 (0.31–0.47 GeV: Armstrong 72 and LEGS in fit I, MacCormick 96 in fit II). Refitting the 2026 model to the two
@@ -158,7 +158,7 @@ Error budget of α+β: PWA mode 0.140, normalizations 0.043, data 0.011, scale f
 choices not included in the error move α+β by less than 0.1 (normalization widths 2 %/5 %: −0.10/+0.06; junction at
 1.6 GeV: +0.08; data below $E_1$ added: −0.06; see `results/2026/unpol_variants.txt`). For comparison, A2 2026
 quote $I_\mathrm{GDH}$ = 210 ± 2 ± 18 μb. The error of $I_\mathrm{GDH}$ is dominated by the Regge region (±19 μb);
-for the same reason, imposing the GDH sum rule hardly constrains $\gamma_0$ and $\bar\gamma_0$.
+for the same reason, imposing the GDH sum rule hardly constrains $\gamma_0$ and $\overline\gamma_0$.
 
 Amplitudes [μb·GeV] (exp+fit errors in parentheses; the data-selection systematic of Re f in the next row; the
 PWA-model systematic of Re g is in `results/2026/pol_g_pwa_model.txt`):
