@@ -1,0 +1,13 @@
+License of the data and results
+===============================
+
+The code in this repository (the Python modules and scripts) is licensed under the MIT License (see LICENSE).
+
+The data tables (data/) and the result tables (results/, out/) are licensed under the Creative Commons
+Attribution 4.0 International License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+(legal text: https://creativecommons.org/licenses/by/4.0/legalcode).
+
+Attribution: cite the papers and the package as given in CITATION.cff. The experimental numbers in the data
+tables are transcriptions of published measurements and the partial-wave tables are outputs of MAID and SAID;
+their original sources are listed in README.md and in the reference columns of data/2026/*.csv, and must be
+cited when the data are used.

@@ -1,0 +1,84 @@
+# Citation metadata (Citation File Format 1.2.0).
+cff-version: 1.2.0
+message: "If you use this code or its tables, please cite the two papers it was written for (preferred-citation and references) and the repository."
+type: software
+title: "ForwardRCS: forward real Compton scattering off the proton from dispersion relations"
+abstract: "Python code for the empirical evaluation of the forward Compton scattering amplitudes of the proton, f(nu) and g(nu), from the total and helicity-difference photoabsorption cross sections by dispersion relations, with the Baldin, GDH and higher-order forward sum rules and the forward observables. It reproduces the evaluations of Gryniuk, Hagelstein and Pascalutsa (2015, 2016) and contains a 2026 update with global fits and new data."
+authors:
+  - family-names: Gryniuk
+    given-names: Oleksii
+  - family-names: Pascalutsa
+    given-names: Vladimir
+    orcid: "https://orcid.org/0000-0002-2613-6104"
+    affiliation: "Institut für Kernphysik, Johannes Gutenberg-Universität Mainz, 55128 Mainz, Germany"
+version: "2.0"
+date-released: "2026-10-18"
+license: MIT   # code; the data and result tables are CC-BY-4.0, see LICENSE-DATA
+repository-code: "https://github.com/HiWARPs/ForwardRCS"
+keywords:
+  - Compton scattering
+  - dispersion relations
+  - sum rules
+  - Baldin sum rule
+  - GDH sum rule
+  - proton polarizabilities
+preferred-citation:
+  type: article
+  title: "Evaluation of the forward Compton scattering off protons: Spin-independent amplitude"
+  authors:
+    - family-names: Gryniuk
+      given-names: Oleksii
+    - family-names: Hagelstein
+      given-names: Franziska
+      orcid: "https://orcid.org/0000-0002-2017-7132"
+    - family-names: Pascalutsa
+      given-names: Vladimir
+      orcid: "https://orcid.org/0000-0002-2613-6104"
+  journal: "Physical Review D"
+  volume: 92
+  start: "074031"
+  year: 2015
+  doi: 10.1103/PhysRevD.92.074031
+  identifiers:
+    - type: other
+      value: "arXiv:1508.07952"
+references:
+  - type: article
+    title: "Evaluation of the forward Compton scattering off protons: Spin-independent amplitude"
+    authors:
+      - family-names: Gryniuk
+        given-names: Oleksii
+      - family-names: Hagelstein
+        given-names: Franziska
+        orcid: "https://orcid.org/0000-0002-2017-7132"
+      - family-names: Pascalutsa
+        given-names: Vladimir
+        orcid: "https://orcid.org/0000-0002-2613-6104"
+    journal: "Physical Review D"
+    volume: 92
+    start: "074031"
+    year: 2015
+    doi: 10.1103/PhysRevD.92.074031
+    identifiers:
+      - type: other
+        value: "arXiv:1508.07952"
+  - type: article
+    title: "Evaluation of the forward Compton scattering off protons: II. Spin-dependent amplitude and observables"
+    authors:
+      - family-names: Gryniuk
+        given-names: Oleksii
+      - family-names: Hagelstein
+        given-names: Franziska
+        orcid: "https://orcid.org/0000-0002-2017-7132"
+      - family-names: Pascalutsa
+        given-names: Vladimir
+        orcid: "https://orcid.org/0000-0002-2613-6104"
+    journal: "Physical Review D"
+    volume: 94
+    issue: 3
+    start: "034043"
+    year: 2016
+    doi: 10.1103/PhysRevD.94.034043
+    identifiers:
+      - type: other
+        value: "arXiv:1604.00789"

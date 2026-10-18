@@ -1,0 +1,5 @@
+# Python 3 (3.13.15 was used). Versions of the author's environment, 2026-10-18; only standard APIs are used.
+numpy==2.5.4
+scipy==1.18.1
+mpmath==1.4.1
+matplotlib==3.11.2   # only for the plot*.py scripts
