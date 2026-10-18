@@ -21,8 +21,8 @@ The code was written for the two papers below; please cite them when you use it 
 The two forward proton Compton-scattering amplitudes, $f(\nu)$ and $g(\nu)$,
 with $\nu$ the photon lab energy, are determined from exact once-subtracted dispersion relations:
 
-$$f(\nu) = -\frac{\alpha}{M} + \frac{\nu^2}{2\pi^2} \mathrm{P}\int_{\nu_0}^\infty \frac{\sigma(\nu') d\nu'}{\nu'^2-\nu^2},\qquad
-g(\nu) = -\frac{\alpha\kappa^2}{2M^2}\nu - \frac{\nu^3}{4\pi^2} \mathrm{P}\int_{\nu_0}^\infty \frac{\Delta\sigma(\nu') d\nu'}{\nu'(\nu'^2-\nu^2)},$$
+$$f(\nu) = -\frac{\alpha}{M} + \frac{\nu^2}{2\pi^2} \int_{\nu_0}^\infty \frac{\sigma(\nu') d\nu'}{\nu'^2-\nu^2},\qquad
+g(\nu) = -\frac{\alpha\kappa^2}{2M^2}\nu - \frac{\nu^3}{4\pi^2} \int_{\nu_0}^\infty \frac{\Delta\sigma(\nu') d\nu'}{\nu'(\nu'^2-\nu^2)},$$
 
 where $\alpha$ is the fine-structure constant, $M$ and $\kappa$ are the proton mass and anomalous magnetic moment, $\sigma = (\sigma_{3/2}+\sigma_{1/2})/2$ is the total
 photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the helicity difference.  The following sum rules are evaluated too:
@@ -30,19 +30,19 @@ photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the
 | | |
 |---|---|
 | Baldin | $\alpha_{E1}+\beta_{M1} = \frac{1}{2\pi^2}\int \sigma/\nu^2 d\nu$ |
-| 4th, 6th order | $\frac{1}{2\pi^2}\int \sigma/\nu^4\,d\nu$, $\frac{1}{2\pi^2}\int \sigma/\nu^6\,d\nu$ |
-| GDH | $I_\mathrm{GDH} = \int \Delta\sigma/\nu\,d\nu \;\overset{!}{=}\; 2\pi^2\alpha\kappa^2/M^2 = 204.78\ \mu$b |
-| forward spin polarizabilities | $\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^3\,d\nu$, $\bar\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^5\,d\nu$ |
+| 4th, 6th order | $\frac{1}{2\pi^2}\int \sigma/\nu^4\,d\nu$, $\frac{1}{2\pi^2}\int \sigma/\nu^6 d\nu$ |
+| GDH | $ \int \Delta\sigma/\nu d\nu $ compared with  $2\pi^2\alpha\kappa^2/M^2 = 204.78\ \mu$b |
+| forward spin polarizabilities | $\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^3 d\nu$, $\bar\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^5 d\nu$ |
 
 Forward observables: $d\sigma/d\Omega(\theta=0) = |f|^2+|g|^2$ and
-$\Sigma_{2z} = -2\,\mathrm{Re}(f g^*)/(|f|^2+|g|^2)$.
+$\Sigma_{2z} = -2 \mathrm{Re}(f g^*)/(|f|^2+|g|^2)$.
 
 The cross section is represented in three regions: a partial-wave table (MAID, SAID) from the pion threshold
 $\nu_0$ up to the $2\pi$ threshold $E_1 = 0.309$ GeV, a fit (Breit–Wigner resonances plus background) up to
 2 GeV, and a Regge form above. Errors are propagated linearly through the covariance of the fit parameters.
 
 **Units and conventions of the code.** Photon lab energy `k` = $\nu$ in GeV; cross sections in μb;
-amplitudes in μb·GeV (divide $|f|^2$ by $10\,(\hbar c)^2$ for nb/sr); sum rules in $10^{-4}$ fm$^{3,5,7}$
+amplitudes in μb·GeV (divide $|f|^2$ by $10\,(\hbar c)^2$ for nb/sr); sum rules in $10^{-4} \mathrm{fm}^{3,5,7}$
 (Baldin, 4th, 6th), μb (GDH), $10^{-6}$ fm$^4$ ($\gamma_0$) and $10^{-6}$ fm$^6$ ($\bar\gamma_0$).
 The polarized data column is $\Delta\sigma/2 = (\sigma_{3/2}-\sigma_{1/2})/2$.
 
