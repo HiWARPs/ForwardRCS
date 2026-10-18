@@ -18,16 +18,15 @@ The code was written for the two papers below; please cite them when you use it 
 
 ## What is computed
 
-For forward scattering, $T = f(\nu)\,\boldsymbol\varepsilon'^*\!\cdot\boldsymbol\varepsilon
-+ i\,g(\nu)\,\boldsymbol\sigma\cdot(\boldsymbol\varepsilon'^*\times\boldsymbol\varepsilon)$,
-with $\nu$ the photon lab energy, $M$ the proton mass and $\kappa$ its anomalous magnetic moment:
+The two forward proton Compton-scattering amplitudes, $f(\nu)$ and $g(\nu)$,
+with $\nu$ the photon lab energy, are determined from exact dispersion relations:
 
-$$f(\nu) = -\frac{\alpha}{M} + \frac{\nu^2}{2\pi^2}\,\mathrm{P}\!\!\int_{\nu_0}^\infty \frac{\sigma(\nu')\,d\nu'}{\nu'^2-\nu^2},\qquad
-g(\nu) = -\frac{\alpha\kappa^2}{2M^2}\,\nu - \frac{\nu^3}{4\pi^2}\,\mathrm{P}\!\!\int_{\nu_0}^\infty \frac{\Delta\sigma(\nu')\,d\nu'}{\nu'(\nu'^2-\nu^2)},$$
+$$f(\nu) = -\frac{\alpha}{M} + \frac{\nu^2}{2\pi^2}\,\mathrm{P}\int_{\nu_0}^\infty \frac{\sigma(\nu') d\nu'}{\nu'^2-\nu^2},\qquad
+g(\nu) = -\frac{\alpha\kappa^2}{2M^2}\nu - \frac{\nu^3}{4\pi^2}\,\mathrm{P}\int_{\nu_0}^\infty \frac{\Delta\sigma(\nu') d\nu'}{\nu'(\nu'^2-\nu^2)},$$
 
 $\mathrm{Im}\,f = \nu\sigma/4\pi$, $\mathrm{Im}\,g = -\nu\Delta\sigma/8\pi$, where $\sigma = (\sigma_{3/2}+\sigma_{1/2})/2$ is the total
 photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the helicity difference. The $g$ relation is subtracted
-with the GDH low-energy theorem, i.e. it assumes the GDH sum rule. Sum rules:
+with the GDH low-energy theorem, i.e. assuming the GDH sum rule. Sum rules:
 
 | | |
 |---|---|
