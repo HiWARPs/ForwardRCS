@@ -111,7 +111,10 @@ Current numbers of the 2015/2016 evaluation (all within the published errors; th
 ## 2026 update
 
 Global fits replace the two unpolarized fits of 2015 and the polarized fit of 2016; the code above stays for
-reproducing the papers. The update follows an audit of the 2016 evaluation (normalization errors ignored,
+reproducing the papers. The update is described in, and used by, V. Pascalutsa, *Chiral-EFT prediction for proton
+polarizabilities tested by the new Compton-scattering data* (2026, in preparation; its code and data:
+[HiWARPs/ComptonBChPT](https://github.com/HiWARPs/ComptonBChPT)); please cite it together with papers 1 and 2 when
+you use the 2026 results. The update follows an audit of the 2016 evaluation (normalization errors ignored,
 inconsistent error matrices, the fit I/fit II difference) and uses the data and analyses that appeared since.
 
 **Unpolarized (`unpol2026.py`).** One fit to all 322 data points above the 2π threshold (Armstrong 72, LEGS, MacCormick 96,
@@ -125,9 +128,9 @@ with fitted normalizations.
 
 **Polarized (`pol2026.py`).** Data: A2 2026 (0.2–1.4 GeV, 222 points), MAMI 2001 (all points from 0.2 GeV), ELSA
 2003/2004, each with a scale nuisance. Below 0.2 GeV: the MAID2007/SM22 average as one error mode. From 0.2 GeV to
-$W$ = 2.5 GeV: relativistic Breit–Wigner terms with a smooth background; above: the Regge parametrization of Helbing
-(2006), as in paper 2 (the newer Regge fit of Bass, Skurzok and Moskal (2018) raises $I_\mathrm{GDH}$ by 2.0 μb and is kept as a
-variant in `results/2026/pol_variants.json`). χ²/dof = 210.1/266. The second error is the spread of the partial-wave analyses below 0.2 GeV
+$W$ = 2.5 GeV: relativistic Breit–Wigner terms with a smooth background; above: the Regge fit of Bass, Skurzok and
+Moskal (2018), chosen for its smaller uncertainty (the Regge parametrization of paper 2, Helbing (2006), gives an
+$I_\mathrm{GDH}$ lower by 2.0 μb with an error of ±21.4 μb; variant in `results/2026/pol_variants.json`). χ²/dof = 209.9/266. The second error is the spread of the partial-wave analyses below 0.2 GeV
 (MAID2007, SM22, CM12), quoted separately.
 
 Results: value ± (exp+fit) ± (systematic). The systematic is the data selection (below) for the unpolarized and the
@@ -138,11 +141,11 @@ partial-wave model below 0.2 GeV for the polarized quantities.
 | α+β [10⁻⁴ fm³] | **14.01 ± 0.18 ± 0.10** | 14.0(2) (average of fits I and II) |
 | 4th order [10⁻⁴ fm⁵] | 5.95 ± 0.09 ± 0.05 | 6.08(12) / 6.01(11) |
 | 6th order [10⁻⁴ fm⁷] | 4.29 ± 0.08 ± 0.04 | 4.36(9) / 4.42(8) |
-| $I_\mathrm{GDH}$ [μb] | **207.7 ± 21.4 ± 1.9** | 204.5(21.4) |
+| $I_\mathrm{GDH}$ [μb] | **209.8 ± 9.2 ± 1.9** | 204.5(21.4) |
 | $\gamma_0$ [10⁻⁶ fm⁴] | **−102.5 ± 8.0 ± 6.2** | −92.9(10.5) |
-| $\overline\gamma_0$ [10⁻⁶ fm⁶] | 44.9 ± 5.8 ± 8.3 | 48.4(8.2) |
-| $\gamma_0$, GDH sum rule imposed | −102.1 ± 7.5 ± 6.2 | |
-| $\overline\gamma_0$, GDH sum rule imposed | 45.0 ± 5.7 ± 8.4 | |
+| $\overline\gamma_0$ [10⁻⁶ fm⁶] | 44.8 ± 5.8 ± 8.3 | 48.4(8.2) |
+| $\gamma_0$, GDH sum rule imposed | −98.6 ± 3.6 ± 5.0 | |
+| $\overline\gamma_0$, GDH sum rule imposed | 46.6 ± 4.8 ± 7.9 | |
 
 **Data selection.** The 2015 fits I and II differ in the data used on the high-energy side of the Δ
 (0.31–0.47 GeV: Armstrong 72 and LEGS in fit I, MacCormick 96 in fit II). Refitting the 2026 model to the two
@@ -157,8 +160,7 @@ as a separate data-selection systematic: 0.10 in α+β, 0.05 and 0.04 in the 4th
 Error budget of α+β: PWA mode 0.140, normalizations 0.043, data 0.011, scale factor 0.106 (in quadrature). Model
 choices not included in the error move α+β by less than 0.1 (normalization widths 2 %/5 %: −0.10/+0.06; junction at
 1.6 GeV: +0.08; data below $E_1$ added: −0.06; see `results/2026/unpol_variants.txt`). For comparison, A2 2026
-quote $I_\mathrm{GDH}$ = 210 ± 2 ± 18 μb. The error of $I_\mathrm{GDH}$ is dominated by the Regge region (±19 μb);
-for the same reason, imposing the GDH sum rule hardly constrains $\gamma_0$ and $\overline\gamma_0$.
+quote $I_\mathrm{GDH}$ = 210 ± 2 ± 18 μb.
 
 Amplitudes [μb·GeV] (exp+fit errors in parentheses; the data-selection systematic of Re f in the next row; the
 PWA-model systematic of Re g is in `results/2026/pol_g_pwa_model.txt`):
@@ -167,7 +169,7 @@ PWA-model systematic of Re g is in `results/2026/pol_g_pwa_model.txt`):
 |---|---|---|---|---|---|---|---|---|
 | Re f | −2.846(2) | −2.222(11) | −0.444(40) | 1.025(45) | 2.033(67) | −4.143(54) | −8.97(21) | −10.66(29) |
 | ± data selection | 0.001 | 0.006 | 0.022 | 0.027 | 0.034 | 0.31 | 0.10 | 0.09 |
-| Re g | −0.2625(3) | −0.538(3) | −0.525(24) | −2.414(40) | −2.977(35) | 0.32(13) | 1.45(31) | 3.10(61) |
+| Re g | −0.2625(3) | −0.538(3) | −0.525(24) | −2.414(40) | −2.978(35) | 0.32(13) | 1.46(31) | 3.16(60) |
 
 Tables in `results/2026`: `unpol_f.txt` (Re f, Im f), `unpol_selection.txt` (its data-selection systematic),
 `pol_g.txt` (Re g, Im g), `pol_g_pwa_model.txt`, `obs.txt` ($d\sigma/d\Omega(0)$, $-2\,\mathrm{Re}\,fg^*$, $\Sigma_{2z}$, by
@@ -187,11 +189,12 @@ normalizations are `data/2026/db_unpolarized.csv` and `data/2026/pol_db.csv`.
   W. J. Briscoe *et al.*, *Extended SAID partial-wave analysis of pion photoproduction* (SM22), Phys. Rev. C 108, 065205 (2023);
   R. L. Workman *et al.*, *Unified Chew-Mandelstam SAID analysis of pion photoproduction data* (CM12), Phys. Rev. C 86, 015202 (2012).
   The SM22 cross sections were obtained from the public SAID interface (`data/2026/*said_sm22.dat`).
-- Regge (polarized): K. Helbing, *The Gerasimov-Drell-Hearn Sum Rule*, Prog. Part. Nucl. Phys. 57, 405 (2006), as in paper 2;
-  variant: S. D. Bass, M. Skurzok, P. Moskal, *Updating spin-dependent Regge intercepts*, Phys. Rev. C 98, 025209 (2018).
+- Regge (polarized): S. D. Bass, M. Skurzok, P. Moskal, *Updating spin-dependent Regge intercepts*, Phys. Rev. C 98, 025209 (2018);
+  variant: K. Helbing, *The Gerasimov-Drell-Hearn Sum Rule*, Prog. Part. Nucl. Phys. 57, 405 (2006), as in paper 2.
 
 **Unverified inputs** (marked in the databases): the source and normalization (3 %) of the LEGS points; the normalization of
-Bartalini 08 (5 %); the error composition of ELSA 2004; the independence of the MAMI 2001 and A2 2026 normalizations.
+Bartalini 08 (5 %); the correlation of the Bass parameters (0.37, chosen to reproduce their quoted error); the error
+composition of ELSA 2004; the independence of the MAMI 2001 and A2 2026 normalizations.
 
 ## License
 

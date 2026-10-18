@@ -82,3 +82,13 @@ references:
     identifiers:
       - type: other
         value: "arXiv:1604.00789"
+  - type: article
+    title: "Chiral-EFT prediction for proton polarizabilities tested by the new Compton-scattering data"
+    abstract: "Uses and describes the 2026 update of the forward amplitudes (unpol2026.py, pol2026.py)."
+    authors:
+      - family-names: Pascalutsa
+        given-names: Vladimir
+        orcid: "https://orcid.org/0000-0002-2613-6104"
+    year: 2026
+    status: in-preparation
+    repository-code: "https://github.com/HiWARPs/ComptonBChPT"

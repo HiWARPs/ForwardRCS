@@ -11,11 +11,11 @@
 #   [0.2, E_j]  fit to data/2026/pol_db.csv (A2 2026, MAMI 2001, ELSA 2003/04) with one scale nuisance per experiment
 #               (model-multiplied, penalty (n-1)^2/delta^2) and one additive nuisance for the A2 extrapolation correction;
 #               joined continuously to the PWA by a cos^2 blend on [0.2, 0.2 + DB] (a step at 0.2 GeV would make Re g log-singular there);
-#   [E_j, inf)  Regge as in GHP16 (pol.py): K. Helbing, Prog. Part. Nucl. Phys. 57, 405 (2006), in the AsymptoticRegionFit form
-#               0.5*(C1 W^p1 + C2 W^p2) = (sigma_3/2 - sigma_1/2)/2: C1 = -34.1(5.7) mcb, p1 = -1.16(46), C2 = 209.4(29) mcb, p2 = -3.32(44),
-#               uncorrelated as in GHP16; enters the fit as a Gaussian prior; joined to the fit with fit.Smooth at E_j.
-#               Variant: S. D. Bass, M. Skurzok, P. Moskal, PRC 98, 025209 (2018), sigma_A - sigma_P = (35.3 +- 3.6) s^(-0.69 +- 0.04) mcb
-#               (C1 = -35.3, p1 = -1.38, C2 = 0); it raises I_GDH by 2.0 mcb and was dropped as the baseline (decision of 2026-10-18).
+#   [E_j, inf)  Regge: S. D. Bass, M. Skurzok, P. Moskal, PRC 98, 025209 (2018): sigma_A - sigma_P = (35.3 +- 3.6) s^(-0.69 +- 0.04) mcb
+#               for sqrt(s) >= 2.5 GeV, i.e. in the AsymptoticRegionFit form 0.5*(C1 W^p1 + C2 W^p2): C1 = -35.3, p1 = -1.38, C2 = 0;
+#               enters the fit as a Gaussian prior (correlation RHO assumed); joined to the fit with fit.Smooth at E_j.
+#               Variant: the Regge parametrization of GHP16 (K. Helbing, PPNP 57, 405 (2006)) gives I_GDH lower by 2.0 mcb, with an
+#               error of +-21.4 mcb (+-19 from the Regge region); Bass et al. is used for its smaller uncertainty (decision of 2026-10-18).
 # All errors are propagated through one covariance matrix (self.fit.pcov) of (model parameters, t, C1, p1, C2, p2), coherently across
 # the regions: data, scale and A2-extrapolation nuisances (they act on the data, not on sigma: marginalized into the model block), Regge
 # prior, PWA mode t. The PWA-model systematic is quoted separately.
@@ -36,13 +36,11 @@ FIT_FILE = os.path.join(D26, 'pol_fit.json')
 M, MPI, HC, SR_GDH = Mp.val, Mpi0.val, float(hc), float(IGDH)
 B1 = 0.2	# GeV: PWA below, data above (no data below 0.2 GeV)
 DB = 0.01	# GeV: width of the PWA-fit blend above B1
-EJ = (2.5**2 - M**2)/(2*M)	# 2.8615 GeV: W = 2.5 GeV, end of the ELSA data
+EJ = (2.5**2 - M**2)/(2*M)	# 2.8615 GeV: W = 2.5 GeV, lower end of the Bass et al. fit (and end of the ELSA data)
 AJ = 0.1	# GeV: width of the Smooth junction (fit.Smooth, as in tot.py)
-REGGE = [-34.1, -1.16, 209.4, -3.32]	# C1 [mcb], p1, C2 [mcb], p2 of AsymptoticRegionFit, Helbing 2006 as in GHP16 (pol.py)
-REGGE_COV = numpy.diag([5.7, 0.46, 29., 0.44])**2	# uncorrelated, as in GHP16
-REGGE_BASS = [-35.3, -1.38, 0., 0.]	# variant: Bass et al. 2018, 0.5*C1*W^p1 = (sigma_3/2 - sigma_1/2)/2, C2 = p2 = 0
-RHO = 0.37	# ASSUMED corr(C1, p1) of the Bass variant (not quoted by Bass et al.): reproduces their +-2 mcb on I_GDH(sqrt(s) > 2.5 GeV)
-def regge_cov(rho=RHO, e=(3.6, 0.08)):	# Bass variant: errors of C1 and p1 (= 2 x exponent: +-0.08); C2 = p2 = 0 fixed
+REGGE = [-35.3, -1.38, 0., 0.]	# C1 [mcb], p1, C2, p2 of AsymptoticRegionFit: 0.5*C1*W^p1 = (sigma_3/2 - sigma_1/2)/2 (Bass et al.)
+RHO = 0.37	# ASSUMED corr(C1, p1) (not quoted by Bass et al.): reproduces their +-2 mcb on I_GDH(sqrt(s) > 2.5 GeV) (rho = 0 gives +-2.5)
+def regge_cov(rho=RHO, e=(3.6, 0.08)):	# errors of C1 and p1 (= 2 x exponent: +-0.08); C2 = p2 = 0 fixed
 	C = numpy.zeros((4, 4))
 	C[:2, :2] = [[e[0]**2, rho*e[0]*e[1]], [rho*e[0]*e[1], e[1]**2]]
 	return C
@@ -181,8 +179,8 @@ def fit_data(kind='bw', D=None, ej=EJ, aj=AJ, db=DB, regge0=REGGE, rcov=None, gd
 	nf = numpy.array([max(f for a, f in D['nf'].items() if (groups_map or {}).get(a, a) == b) for b in G])	# merged groups: the larger scale error
 	knots = [x for x in KNOTS if x < ej - 0.1] + [ej]
 	m = len(P_BW) if kind == 'bw' else len(knots) + 2
-	rcov = REGGE_COV if rcov is None else numpy.array(rcov)
-	fr = [i for i in range(4) if rcov[i, i] > 0]; nr = len(fr)	# free Regge parameters (C2 = p2 = 0 fixed in the Bass variant)
+	rcov = regge_cov() if rcov is None else numpy.array(rcov)
+	fr = [i for i in range(4) if rcov[i, i] > 0]; nr = len(fr)	# free Regge parameters (C2 = p2 = 0 fixed for Bass et al.)
 	Lr = numpy.linalg.cholesky(numpy.linalg.inv(rcov[numpy.ix_(fr, fr)])).T
 	K, Kw = map(numpy.concatenate, zip(_nodes(B1, ej), _nodes(ej, inf)))
 	ng = len(G)
@@ -372,8 +370,8 @@ def results(F=None):
 	low = F['bw']['low']
 	lex = {k: [float(w.re_g(k).val), -k*SR_GDH/(4*pi**2) + k**3*legacy['gamma0']['total'][0]/(100*HC**2) + k**5*legacy['gamma0bar']['total'][0]/(100*HC**4)] for k in (0.02, 0.05)}	# check: Re g vs its low-energy expansion
 	R = dict(
-		conventions='column = (sigma_3/2 - sigma_1/2)/2 [mcb]; I_GDH [mcb], gamma0 [1e-6 fm^4], gamma0bar [1e-6 fm^6]; regions [E0, 0.2 GeV] (PWA), [0.2 GeV, E_j] (fit; blend with the PWA on [0.2, %.2f]), [E_j, inf) (Regge, Helbing 2006 as in GHP16), E_j = %.4f GeV, Smooth width %.2f GeV' % (B1 + DB, EJ, AJ),
-		error_budget='data: statistical errors of the data; norm: scale nuisances and the A2 extrapolation nuisance; regge: Helbing 2006 prior (uncorrelated errors as in GHP16); pwa: PWA mode t (column x (1 + r t), r = 2% (+) half the MAID2007-SM22 spread, on [E0, 0.2] and the PWA side of the blend; pwa_low: its [E0, 0.2] part); gdh: the sum-rule pseudo-measurement; S: scale factor sqrt(chi2/dof) if > 1; total = (data (+) norm (+) regge (+) gdh) x S (+) pwa = the exp+fit error; pwa_model_systematic: separate',
+		conventions='column = (sigma_3/2 - sigma_1/2)/2 [mcb]; I_GDH [mcb], gamma0 [1e-6 fm^4], gamma0bar [1e-6 fm^6]; regions [E0, 0.2 GeV] (PWA), [0.2 GeV, E_j] (fit; blend with the PWA on [0.2, %.2f]), [E_j, inf) (Regge, Bass et al. 2018), E_j = %.4f GeV, Smooth width %.2f GeV' % (B1 + DB, EJ, AJ),
+		error_budget='data: statistical errors of the data; norm: scale nuisances and the A2 extrapolation nuisance; regge: Bass et al. prior (corr(C1, p1) = %.2f assumed); pwa: PWA mode t (column x (1 + r t), r = 2%% (+) half the MAID2007-SM22 spread, on [E0, 0.2] and the PWA side of the blend; pwa_low: its [E0, 0.2] part); gdh: the sum-rule pseudo-measurement; S: scale factor sqrt(chi2/dof) if > 1; total = (data (+) norm (+) regge (+) gdh) x S (+) pwa = the exp+fit error; pwa_model_systematic: separate' % RHO,
 		unconstrained=analyse(F['bw']), gdh_constrained=analyse(F['bw_gdh']), spline=analyse(F['spline']), legacy_machinery=legacy,
 		pwa_low={k: {NAMES[n]: float(v[n]) for n in UNIT} for k, v in low.items()},
 		fit={k: {a: c for a, c in entry(v).items() if a not in ('p', 'pcov')} for k, v in F.items()},
@@ -422,7 +420,7 @@ def g_table(nproc=None):	# results/2026/pol_g.txt with the legacy machinery (for
 	os.makedirs(R26, exist_ok=True)
 	with open(os.path.join(R26, 'pol_g.txt'), 'w') as f:
 		f.write('# forward spin-dependent amplitude g(nu) of the proton: 2026 update of GHP16 (pol2026.py, model "bw"); GDH-subtracted DR, i.e. the LET g\'(0) = -alpha kappa^2/(2 M^2)\n')
-		f.write('# errors (exp+fit): one covariance (data, scale and extrapolation nuisances, Regge prior, PWA mode below 0.2 GeV); PWA-model systematic: pol_g_pwa_model.txt; nu > E_j = 2.86 GeV: Regge region (Helbing 2006, as GHP16)\n')
+		f.write('# errors (exp+fit): one covariance (data, scale and extrapolation nuisances, Regge prior, PWA mode below 0.2 GeV); PWA-model systematic: pol_g_pwa_model.txt; nu > E_j = 2.86 GeV: Regge region (Bass et al. 2018)\n')
 		f.write(r' \nu       Re g       error      Im g       error' + '\n')
 		f.write(r'(GeV)    (mcb*GeV)  (mcb*GeV)  (mcb*GeV)  (mcb*GeV)' + '\n\n')
 		f.write('\n'.join('%.3f   %.8f   %.8f   %.8f   %.8f' % ((k,) + r) for k, r in zip(kk, rows)) + '\n')
@@ -446,8 +444,8 @@ def variants():
 		'common scale MAMI 2001 + ELSA (same GDH-collaboration target)': dict(groups_map={'MAMI01': 'GDH', 'ELSA': 'GDH'}),
 		'common scale A2 2026 + MAMI 2001 (same tagged-photon facility)': dict(groups_map={'MAMI01': 'MAMI', 'A2_26': 'MAMI'}),
 		'A2 extrapolation error point-to-point': dict(ex_nuisance=False),
-		'Regge of Bass et al. 2018 (corr(C1,p1) = 0.37 assumed)': dict(regge0=REGGE_BASS, rcov=regge_cov()),
-		'Regge of Bass et al. 2018, corr(C1,p1) = 0': dict(regge0=REGGE_BASS, rcov=regge_cov(0.)),
+		'Regge corr(C1,p1) = 0': dict(rcov=regge_cov(0.)), 'Regge corr(C1,p1) = 0.9': dict(rcov=regge_cov(0.9)),
+		'Regge of GHP16 (Helbing 2006, diagonal errors)': dict(regge0=[-34.1, -1.16, 209.4, -3.32], rcov=numpy.diag([5.7, 0.46, 29., 0.44])**2),
 	}
 	row = lambda r: {a: [r[a]['value'], r[a]['err']] + [r[a]['regions'][x][0] for x in REGIONS] for a in NAMES.values()}
 	out = {'baseline': row(base)}
