@@ -4,6 +4,7 @@
 - pins the current sum rules, amplitudes and forward observables;
 - checks them against the published tables of Gryniuk, Hagelstein, Pascalutsa, PRD 92, 074031 (2015) and
   PRD 94, 034043 (2016), within the quoted errors;
+- pins the sum rules and two amplitudes of the 2026 fits (unpol2026.py, pol2026.py);
 - guards the fixes of audit findings 1-4 (threshold precomputation near E1, table energies, Sigma_2z errors,
   error matrices built from the fitted points).
 """
@@ -141,6 +142,35 @@ class AuditFixes(unittest.TestCase):
 			Cr = w.r_region.fit.pcov
 			ratio = numpy.sqrt(numpy.diag(w.fit.pcov)[:15]/numpy.diag(Cr)[:15])	# first five resonances (the sixth sits at the 2 GeV junction)
 			self.assertLess(abs(ratio - 1).max(), 0.02, w.filename)
+
+
+class Update2026(unittest.TestCase):	# the 2026 fits as stored in data/2026/*_fit.json (no refit); f: unpol2026, g: pol2026
+
+	SUM_RULES = {
+		('f', 2): (14.0092, 0.18143), ('f', 4): (5.949925, 0.090506), ('f', 6): (4.29274, 0.07509),
+		('g', 1): (209.7864, 9.2456), ('g', 3): (-102.4785, 8.0128), ('g', 5): (44.84499, 5.821),
+	}
+	AMPLITUDES = {	# Re f, Re g
+		0.1: ((-2.221681, 0.01069), (-0.5384401, 0.002516)),
+		0.3: ((2.033378, 0.06668), (-2.977713, 0.03547)),
+	}
+
+	@classmethod
+	def setUpClass(cls):
+		with contextlib.redirect_stdout(io.StringIO()):
+			import unpol2026, pol2026
+			cls.w = {'f': unpol2026.WholeRegion2026(), 'g': pol2026.WholeRegionPol2026('bw')}
+
+	check = Pinned.check
+
+	def test_sum_rules(self):
+		for (a, n), ref in self.SUM_RULES.items():
+			self.check(sum_rule(self.w[a], n), ref, '2026 %s, n=%d' % (a, n))
+
+	def test_amplitudes(self):
+		for k, (rf, rg) in self.AMPLITUDES.items():
+			self.check(self.w['f'].re_f(k), rf, '2026 Re f(%g GeV)' % k)
+			self.check(self.w['g'].re_g(k), rg, '2026 Re g(%g GeV)' % k)
 
 
 if __name__ == '__main__':
