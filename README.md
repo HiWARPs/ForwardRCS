@@ -19,18 +19,17 @@ The code was written for the two papers below; please cite them when you use it 
 ## What is computed
 
 The two forward proton Compton-scattering amplitudes, $f(\nu)$ and $g(\nu)$,
-with $\nu$ the photon lab energy, are determined from exact dispersion relations:
+with $\nu$ the photon lab energy, are determined from exact once-subtracted dispersion relations:
 
-$$f(\nu) = -\frac{\alpha}{M} + \frac{\nu^2}{2\pi^2}\,\mathrm{P}\int_{\nu_0}^\infty \frac{\sigma(\nu') d\nu'}{\nu'^2-\nu^2},\qquad
-g(\nu) = -\frac{\alpha\kappa^2}{2M^2}\nu - \frac{\nu^3}{4\pi^2}\,\mathrm{P}\int_{\nu_0}^\infty \frac{\Delta\sigma(\nu') d\nu'}{\nu'(\nu'^2-\nu^2)},$$
+$$f(\nu) = -\frac{\alpha}{M} + \frac{\nu^2}{2\pi^2} \mathrm{P}\int_{\nu_0}^\infty \frac{\sigma(\nu') d\nu'}{\nu'^2-\nu^2},\qquad
+g(\nu) = -\frac{\alpha\kappa^2}{2M^2}\nu - \frac{\nu^3}{4\pi^2} \mathrm{P}\int_{\nu_0}^\infty \frac{\Delta\sigma(\nu') d\nu'}{\nu'(\nu'^2-\nu^2)},$$
 
-$\mathrm{Im}\,f = \nu\sigma/4\pi$, $\mathrm{Im}\,g = -\nu\Delta\sigma/8\pi$, where $\sigma = (\sigma_{3/2}+\sigma_{1/2})/2$ is the total
-photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the helicity difference. The $g$ relation is subtracted
-with the GDH low-energy theorem, i.e. assuming the GDH sum rule. Sum rules:
+where $\alpha$ is the fine-structure constant, $M$ and $\kappa$ are the proton mass and anomalous magnetic moment, $\sigma = (\sigma_{3/2}+\sigma_{1/2})/2$ is the total
+photoabsorption cross section and $\Delta\sigma = \sigma_{3/2}-\sigma_{1/2}$ the helicity difference.  The following sum rules are evaluated too:
 
 | | |
 |---|---|
-| Baldin | $\alpha_{E1}+\beta_{M1} = \frac{1}{2\pi^2}\int \sigma/\nu^2\,d\nu$ |
+| Baldin | $\alpha_{E1}+\beta_{M1} = \frac{1}{2\pi^2}\int \sigma/\nu^2 d\nu$ |
 | 4th, 6th order | $\frac{1}{2\pi^2}\int \sigma/\nu^4\,d\nu$, $\frac{1}{2\pi^2}\int \sigma/\nu^6\,d\nu$ |
 | GDH | $I_\mathrm{GDH} = \int \Delta\sigma/\nu\,d\nu \;\overset{!}{=}\; 2\pi^2\alpha\kappa^2/M^2 = 204.78\ \mu$b |
 | forward spin polarizabilities | $\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^3\,d\nu$, $\bar\gamma_0 = -\frac{1}{4\pi^2}\int \Delta\sigma/\nu^5\,d\nu$ |
