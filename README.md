@@ -155,8 +155,16 @@ shape difference remains: at 0.40 GeV the two selections give σ = 294 and 272 �
 0.6 μb·GeV at 0.45–0.5 GeV. The global fit follows MacCormick there. Half the difference of the two refits is quoted
 as a separate data-selection systematic: 0.10 in α+β, 0.05 and 0.04 in the 4th- and 6th-order sum rules, up to
 0.32 μb·GeV in Re f (0.45–0.5 GeV; below 0.3 GeV at most 0.03), and correspondingly for the forward observables
-(`results/2026/unpol_selection.txt`, `results/2026/obs_selection.txt`). An analysis with independent data
-(exclusive channels on the Δ tail) is under way.
+(`results/2026/unpol_selection.txt`, `results/2026/obs_selection.txt`).
+
+**Cross-check with the exclusive channels.** The total cross section was also built from the measured exclusive
+channels: π⁰p (P. Adlarson *et al.* (A2), Phys. Rev. C 92, 024617 (2015)), π⁺n (SAID SM22) and the three ππN channels
+(A. Braghieri *et al.* (DAPHNE), Phys. Lett. B 363, 46 (1995), with the A2 and TAPS data as alternatives). On
+0.31–0.50 GeV this sum supports MacCormick 96 and rejects the shape of Armstrong 72 at 3.8σ (2.5–5.1σ over the
+constructions of the sum); added to the global fit as data, it would move α+β by −0.04, to 13.97(17). On 0.50–0.80
+GeV, Armstrong 72 and MacCormick 96 agree with each other, Bartalini 08 deviates from both, and the sum gives no clear
+verdict. The 2026 evaluation is therefore left unchanged, with the data-selection systematic above. (The scripts of
+this check are not part of the repository.)
 
 **Channels absent from the database (one-sided).** The sum rules hold for the total photoabsorption cross section,
 and a channel left out can only raise them, since every cross section is positive. At the order in α at which the
