@@ -2,7 +2,7 @@
 
 Empirical evaluation of the forward Compton scattering amplitudes of the proton from photoabsorption cross
 sections by dispersion relations, with the forward sum rules (Baldin, GDH and higher order) and the forward
-observables.
+observables. The 2026 update adds the forward sum rules of the neutron, from the single-pion partial waves.
 
 **Code:** Oleksii Gryniuk (main author), Vladimir Pascalutsa.
 The code was written for the two papers below; please cite them when you use it (see also `CITATION.cff`):
@@ -54,6 +54,7 @@ python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python pol.py                              # polarized: GDH, gamma0, gamma0bar
 .venv/bin/python -m unittest discover -s tests       # regression test, 2-3 min
 .venv/bin/python unpol2026.py; .venv/bin/python pol2026.py; .venv/bin/python amp2026.py   # 2026 update, ~5 min each
+.venv/bin/python neutron2026.py                       # 2026 update, neutron sum rules (needs results/2026/unpol_sumrules.json)
 ```
 
 Run everything from the repository root (the data are read with relative paths).
@@ -71,7 +72,7 @@ Run everything from the repository root (the data are read with relative paths).
 | `data/tot`, `data/pol` | the 2015/2016 databases (fit I: `mdata.dat`, fit II: `sdata.dat`, polarized: `pol/data.dat`) |
 | `out/` | outputs of the 2016-era code, kept for reference |
 | `tests/test_regression.py` | regression test (pinned numbers, published tables, audit fixes) |
-| `unpol2026.py`, `pol2026.py`, `amp2026.py`, `data/2026`, `results/2026` | the 2026 update (below) |
+| `unpol2026.py`, `pol2026.py`, `amp2026.py`, `neutron2026.py`, `data/2026`, `results/2026`, `tools/` | the 2026 update (below) |
 
 `integral_c.py`, `pion.py`, `gdh_data.py` and `perr.py` are auxiliary scripts of the original code
 (`perr.py` needs a module `custom.py` that is not part of the frozen code).
@@ -111,8 +112,8 @@ Current numbers of the 2015/2016 evaluation (all within the published errors; th
 ## 2026 update
 
 Global fits replace the two unpolarized fits of 2015 and the polarized fit of 2016; the code above stays for
-reproducing the papers. The update is described in, and used by, V. Pascalutsa, *Chiral-EFT prediction for proton
-polarizabilities tested by the new Compton-scattering data* (2026, in preparation; its code and data:
+reproducing the papers. The update is described in, and used by, V. Pascalutsa, *Nucleon polarizabilities from new
+Compton-scattering data below and across the Δ(1232): chiral EFT versus partial-wave analysis* (2026, in preparation; its code and data:
 [HiWARPs/ComptonBChPT](https://github.com/HiWARPs/ComptonBChPT)); please cite it together with papers 1 and 2 when
 you use the 2026 results. The update follows an audit of the 2016 evaluation (normalization errors ignored,
 inconsistent error matrices, the fit I/fit II difference) and uses the data and analyses that appeared since.
@@ -147,6 +148,22 @@ upward systematic (in parentheses): the elastic channel γp → γp, which no ha
 | $\overline\gamma_0$ [10⁻⁶ fm⁶] | 44.8 ± 5.8 ± 8.3 | 48.4(8.2) |
 | $\gamma_0$, GDH sum rule imposed | −98.6 ± 3.6 ± 5.0 | |
 | $\overline\gamma_0$, GDH sum rule imposed | 46.6 ± 4.8 ± 7.9 | |
+
+**Neutron (`neutron2026.py`).** There are no photoabsorption data on a free neutron; the neutron sum rules are built
+from the single-pion partial waves and the proton evaluation. Below $E_1$, single-pion production is the whole cross
+section: the average of SM22 and MAID2007 for γn → π⁻p and π⁰n, with error 2 % ⊕ half their difference, as for the
+proton. Above $E_1$: single-pion production up to 1.5 GeV from the same average (error 3 % ⊕ half the difference),
+and the rest (multi-pion production, single pion above 1.5 GeV) equal to that of the proton in the 2026 fit, with a
+50 % error. The Baldin sum agrees with the evaluation of M. I. Levchuk and A. I. L'vov, Nucl. Phys. A 674, 449 (2000),
+α+β = 15.2(5); its error is dominated by the remainder. The partial waves below $E_1$ give 78 % of the 4th-order sum
+rule and dominate its error. Neutron − proton: errors in quadrature (proton: exp+fit ⊕ data selection). Not included:
+the one-sided elastic channel γn → γn.
+
+| | neutron | neutron − proton |
+|---|---|---|
+| α+β [10⁻⁴ fm³] | 15.7 ± 1.3 | 1.6 ± 1.3 |
+| 4th order [10⁻⁴ fm⁵] | **7.36 ± 0.14** | 1.41 ± 0.17 |
+| 6th order [10⁻⁴ fm⁷] | 5.79 ± 0.11 | 1.49 ± 0.14 |
 
 **Data selection.** The 2015 fits I and II differ in the data used on the high-energy side of the Δ
 (0.31–0.47 GeV: Armstrong 72 and LEGS in fit I, MacCormick 96 in fit II). Refitting the 2026 model to the two
@@ -203,7 +220,7 @@ Tables in `results/2026`: `unpol_f.txt` (Re f, Im f), `unpol_selection.txt` (its
 `unpol_missing.txt` (its elastic-channel shift),
 `pol_g.txt` (Re g, Im g), `pol_g_pwa_model.txt`, `obs.txt` ($d\sigma/d\Omega(0)$, $-2\,\mathrm{Re}\,fg^*$, $\Sigma_{2z}$, by
 `amp2026.py`), `obs_selection.txt`, `obs_missing.txt`, the sum rules with their error budgets
-(`*_sumrules.json`) and the model variants (`*_variants.*`). The databases with the source of every point and the
+(`*_sumrules.json`, the neutron in `neutron_sumrules.json`) and the model variants (`*_variants.*`). The databases with the source of every point and the
 normalizations are `data/2026/db_unpolarized.csv` and `data/2026/pol_db.csv`.
 
 **Inputs.**
@@ -217,7 +234,9 @@ normalizations are `data/2026/db_unpolarized.csv` and `data/2026/pol_db.csv`.
 - Partial waves: D. Drechsel, S. S. Kamalov, L. Tiator, *Unitary Isobar Model – MAID2007*, Eur. Phys. J. A 34, 69 (2007);
   W. J. Briscoe *et al.*, *Extended SAID partial-wave analysis of pion photoproduction* (SM22), Phys. Rev. C 108, 065205 (2023);
   R. L. Workman *et al.*, *Unified Chew-Mandelstam SAID analysis of pion photoproduction data* (CM12), Phys. Rev. C 86, 015202 (2012).
-  The SM22 cross sections were obtained from the public SAID interface (`data/2026/*said_sm22.dat`).
+  The SM22 cross sections were obtained from the public SAID interface (`data/2026/*said_sm22.dat`). The single-pion
+  cross sections of the four channels (proton and neutron), SM22 and MAID2007 (solution MD07 of the same interface), on
+  0.1446-1.5 GeV are in `data/2026/single_pion_said.dat` (`tools/fetch_said_single_pion.py`).
 - Elastic channel: σ(γp → γp) of the NNLO amplitude of V. Lensky and V. Pascalutsa, *Predictive powers of chiral
   perturbation theory in Compton scattering off protons*, Eur. Phys. J. C 65, 195 (2010), as evaluated in the 2026 paper.
 - Regge (polarized): S. D. Bass, M. Skurzok, P. Moskal, *Updating spin-dependent Regge intercepts*, Phys. Rev. C 98, 025209 (2018);

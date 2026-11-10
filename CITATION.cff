@@ -3,7 +3,7 @@ cff-version: 1.2.0
 message: "If you use this code or its tables, please cite the two papers it was written for (preferred-citation and references) and the repository."
 type: software
 title: "ForwardRCS: forward real Compton scattering off the proton from dispersion relations"
-abstract: "Python code for the empirical evaluation of the forward Compton scattering amplitudes of the proton, f(nu) and g(nu), from the total and helicity-difference photoabsorption cross sections by dispersion relations, with the Baldin, GDH and higher-order forward sum rules and the forward observables. It reproduces the evaluations of Gryniuk, Hagelstein and Pascalutsa (2015, 2016) and contains a 2026 update with global fits and new data."
+abstract: "Python code for the empirical evaluation of the forward Compton scattering amplitudes of the proton, f(nu) and g(nu), from the total and helicity-difference photoabsorption cross sections by dispersion relations, with the Baldin, GDH and higher-order forward sum rules and the forward observables. It reproduces the evaluations of Gryniuk, Hagelstein and Pascalutsa (2015, 2016) and contains a 2026 update with global fits and new data, and the forward sum rules of the neutron from the single-pion partial waves."
 authors:
   - family-names: Gryniuk
     given-names: Oleksii
@@ -83,8 +83,8 @@ references:
       - type: other
         value: "arXiv:1604.00789"
   - type: article
-    title: "Chiral-EFT prediction for proton polarizabilities tested by the new Compton-scattering data"
-    abstract: "Uses and describes the 2026 update of the forward amplitudes (unpol2026.py, pol2026.py)."
+    title: "Nucleon polarizabilities from new Compton-scattering data below and across the Delta(1232): chiral EFT versus partial-wave analysis"
+    abstract: "Uses and describes the 2026 update of the forward amplitudes (unpol2026.py, pol2026.py) and of the neutron forward sum rules (neutron2026.py)."
     authors:
       - family-names: Pascalutsa
         given-names: Vladimir

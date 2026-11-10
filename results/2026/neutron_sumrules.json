@@ -1,0 +1,91 @@
+{
+ "info": "2026 update, neutron: forward sum rules I_n = 1/(2 pi^2) int sigma/nu^n, n = 2 (Baldin, alpha+beta), 4, 6, of the\nneutron, from the single-pion partial waves and the 2026 proton evaluation (unpol2026.py).",
+ "date": "2026-11-10",
+ "units": {
+  "2": "1e-4 fm^3",
+  "4": "1e-4 fm^5",
+  "6": "1e-4 fm^7"
+ },
+ "compare": {
+  "2": {
+   "Levchuk-Lvov 2000": [
+    15.2,
+    0.5
+   ]
+  }
+ },
+ "sum_rules": {
+  "2": {
+   "value": 15.652032764245082,
+   "error": 1.2627694476600821,
+   "budget": {
+    "below_E1": 0.16483650555690643,
+    "above_E1_single_pion": 0.17394464186076783,
+    "remainder": 1.2398221106059797
+   },
+   "parts": {
+    "below_E1": 7.374327139415739,
+    "below_E1_SM22_MAID_half_difference": 0.07361245316223775,
+    "above_E1_single_pion": 5.798061403617384,
+    "remainder_from_proton": 2.4796442212119594
+   },
+   "proton_2026": [
+    14.009198801216996,
+    0.2082289127025777
+   ],
+   "n_minus_p": [
+    1.6428339630280853,
+    1.2798226275656508
+   ],
+   "single_pion_n_minus_p": 1.520994631272231
+  },
+  "4": {
+   "value": 7.355684512215018,
+   "error": 0.1367883493147364,
+   "budget": {
+    "below_E1": 0.116376374497082,
+    "above_E1_single_pion": 0.04578896042693526,
+    "remainder": 0.05541627080728029
+   },
+   "parts": {
+    "below_E1": 5.745274135658603,
+    "below_E1_SM22_MAID_half_difference": 0.01844425611235101,
+    "above_E1_single_pion": 1.4995778349418547,
+    "remainder_from_proton": 0.11083254161456058
+   },
+   "proton_2026": [
+    5.94992505000015,
+    0.10463292748474215
+   ],
+   "n_minus_p": [
+    1.405759462214868,
+    0.17221818145096543
+   ],
+   "single_pion_n_minus_p": 1.31076167861025
+  },
+  "6": {
+   "value": 5.786568495933137,
+   "error": 0.11063349249440774,
+   "budget": {
+    "below_E1": 0.10969167945671489,
+    "above_E1_single_pion": 0.013884289169527912,
+    "remainder": 0.003838181044768074
+   },
+   "parts": {
+    "below_E1": 5.327182702422465,
+    "below_E1_SM22_MAID_half_difference": 0.02609050256394152,
+    "above_E1_single_pion": 0.451709431421136,
+    "remainder_from_proton": 0.007676362089536148
+   },
+   "proton_2026": [
+    4.2927403029799125,
+    0.08473310189218908
+   ],
+   "n_minus_p": [
+    1.4938281929532247,
+    0.1393537520764413
+   ],
+   "single_pion_n_minus_p": 1.4044800833588758
+  }
+ }
+}

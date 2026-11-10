@@ -179,6 +179,15 @@ class Update2026(unittest.TestCase):	# the 2026 fits as stored in data/2026/*_fi
 			self.assertAlmostEqual(sum(el.sr(n)), ref, delta=2e-6, msg='elastic SR%d' % n)
 		self.assertAlmostEqual(el.re_f(0.1), 0.0030783, delta=2e-7)
 
+	def test_neutron(self):	# neutron2026: single-pion partial waves + the stored proton sum rules; Baldin vs Levchuk-L'vov 15.2(5)
+		import neutron2026, tempfile
+		with tempfile.TemporaryDirectory() as d:
+			r = neutron2026.results(out=os.path.join(d, 'n.json'), quiet=True)
+		for n, ref in ((2, (15.65203, 1.26277)), (4, (7.35568, 0.13679)), (6, (5.78657, 0.11063))):
+			self.assertAlmostEqual(r[str(n)]['value'], ref[0], delta=2e-5, msg='neutron SR%d' % n)
+			self.assertAlmostEqual(r[str(n)]['error'], ref[1], delta=2e-5, msg='neutron SR%d error' % n)
+		self.assertLess(abs(r['2']['value'] - 15.2), r['2']['error'])
+
 
 if __name__ == '__main__':
 	unittest.main()
